@@ -1,138 +1,149 @@
-<!doctype html>
+    <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Demo Colour Trading — Practice Game (Demo Only)</title>
+  <title>Demo Colour Trading — Mobile (Demo Only)</title>
   <style>
-    :root{--bg:#0f1724;--card:#0b1220;--muted:#9aa4b2;--accent:#7c3aed}
-    *{box-sizing:border-box;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071024 0%, #071a2a 100%);color:#e6eef6}
-    .wrap{max-width:980px;margin:36px auto;padding:20px}
-    h1{font-size:22px;margin:0 0 6px}
-    p.lead{margin:0 0 18px;color:var(--muted)}
+    /* Mobile-first clean theme */
+    :root{
+      --bg:#0b1220;
+      --panel:#0f1724;
+      --muted:#9aa4b2;
+      --accent:#7c3aed;
+      --card:#0f2533;
+      --glass: rgba(255,255,255,0.03);
+      --success: #2bd16f;
+      --danger: #ff4d4f;
+      --glass-2: rgba(255,255,255,0.02);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#e6eef6;background:linear-gradient(180deg,var(--bg) 0%, #071024 100%);}
+    .container{max-width:900px;margin:0 auto;padding:18px 16px 30px}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+    h1{font-size:20px;margin:0;line-height:1.05}
+    p.lead{margin:4px 0 0;font-size:13px;color:var(--muted)}
 
-    .grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
-    .card{background:rgba(255,255,255,0.02);border-radius:16px;padding:18px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    /* card */
+    .card{background:linear-gradient(180deg,var(--panel), #071022);border-radius:14px;padding:14px;box-shadow:0 8px 24px rgba(2,6,23,0.6);margin-bottom:12px}
+    .row{display:flex;gap:10px;align-items:center}
+    .col{flex:1}
 
-    .center{display:flex;align-items:center;justify-content:center}
-    .controls{display:flex;gap:10px;align-items:center}
+    /* status */
+    .status{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .balance-area{font-size:13px;color:var(--muted)}
+    .balance-num{font-weight:800;font-size:22px;margin-top:4px}
+    .round-num{font-weight:700;font-size:13px;color:var(--muted)}
 
-    .color-btn{padding:16px 28px;border-radius:12px;border:0;font-weight:700;cursor:pointer;font-size:16px}
-    .red{background:linear-gradient(180deg,#ff6b6b,#ff3b3b);color:#111}
-    .green{background:linear-gradient(180deg,#85f09b,#2bd16f);color:#072510}
+    /* timer + stake */
+    .timer-wrap{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+    .timer-box{background:var(--glass);padding:14px;border-radius:12px;text-align:center;min-width:90px}
+    .timer-num{font-size:32px;font-weight:800}
+    .timer-label{font-size:12px;color:var(--muted);margin-top:4px}
+    .stake-input{flex:1}
+    .stake-input input{width:100%;padding:12px;border-radius:10px;border:0;background:var(--glass-2);color:inherit;font-weight:600}
 
+    /* big buttons */
+    .choices{display:flex;gap:12px;margin-bottom:12px}
+    .btn{
+      flex:1;padding:14px;border-radius:12px;border:0;font-weight:800;font-size:16px;
+      box-shadow:0 6px 18px rgba(2,6,23,0.6);cursor:pointer;transition:transform .12s ease, box-shadow .12s;
+    }
+    .btn:active{transform:translateY(2px)}
+    .btn.red{background:linear-gradient(180deg,#ff7b7b,#ff3b3b);color:#111}
+    .btn.green{background:linear-gradient(180deg,#9ef4b6,#2bd16f);color:#072510}
+
+    .controls{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+    .start-btn{padding:10px 12px;border-radius:10px;border:0;background:#111827;color:white;font-weight:700;cursor:pointer}
     .muted{color:var(--muted);font-size:13px}
-    .timer{font-size:42px;font-weight:800;letter-spacing:1px}
 
-    .small{font-size:13px}
-    .row{display:flex;gap:12px;align-items:center}
+    /* result */
+    .result{margin-top:6px;padding:12px;border-radius:10px;background:var(--glass);font-weight:700}
+    .result .win{color:var(--success)}
+    .result .lose{color:var(--danger)}
 
-    .history{max-height:260px;overflow:auto;margin-top:12px;padding-right:6px}
-    .hist-item{display:flex;justify-content:space-between;padding:8px;border-radius:8px;margin-bottom:8px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));font-size:13px}
+    /* history */
+    .history{max-height:260px;overflow:auto;margin-top:10px}
+    .hist-item{display:flex;justify-content:space-between;padding:10px;border-radius:10px;background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));margin-bottom:8px}
+    .hist-left{font-weight:700}
+    .hist-right{font-weight:700;text-align:right}
 
-    .balance{font-size:18px;font-weight:700}
-    .muted-2{color:#99a7b7}
+    footer.small{font-size:12px;color:var(--muted);text-align:center;margin-top:12px}
 
-    .footer{margin-top:16px;color:var(--muted);font-size:13px}
-
-    @media (max-width:880px){.grid{grid-template-columns:1fr;}.card{padding:14px}}
+    /* larger screen tweaks */
+    @media(min-width:880px){
+      .container{padding:28px}
+      .grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
+      .card{padding:18px}
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>Demo Colour Trading — Practice Game</h1>
-    <p class="lead">This is a <strong>demo / educational</strong> game. No real money, only points. Use it to practice UI, logic or demo a site.</p>
-
-    <div class="grid">
+  <div class="container">
+    <header>
       <div>
-        <div class="card">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-            <div>
-              <div class="muted small">Balance (demo points)</div>
-              <div id="balance" class="balance">1000</div>
-            </div>
+        <h1>Demo Colour Trading</h1>
+        <p class="lead">Demo / educational — no real money. Mobile-friendly.</p>
+      </div>
+    </header>
 
-            <div style="text-align:right">
-              <div class="muted small">Round</div>
-              <div id="roundNumber" style="font-weight:700">0</div>
-            </div>
-          </div>
-
-          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px">
-            <div style="flex:1">
-              <div class="muted small">Time left</div>
-              <div id="timer" class="timer">--</div>
-              <div class="muted small">Choose red or green before the timer ends. Result is random (demo).</div>
-            </div>
-
-            <div style="width:220px">
-              <div class="muted small">Stake (demo points)</div>
-              <input id="stake" type="number" min="10" step="10" value="100" style="width:100%;padding:10px;border-radius:8px;border:0;margin-top:6px;background:rgba(255,255,255,0.02);color:inherit">
-            </div>
-          </div>
-
-          <div class="row" style="margin-bottom:12px">
-            <button id="btnRed" class="color-btn red" style="flex:1">Choose RED</button>
-            <button id="btnGreen" class="color-btn green" style="flex:1">Choose GREEN</button>
-          </div>
-
-          <div style="display:flex;gap:10px;align-items:center;margin-bottom:6px">
-            <button id="startBtn" style="padding:10px 14px;border-radius:10px;border:0;cursor:pointer">Start Round</button>
-            <div class="muted">Auto-start when previous round ends</div>
-          </div>
-
-          <div id="resultBox" style="margin-top:12px;display:none;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02)">
-            <div class="muted small" id="resultText">Result will appear here</div>
-          </div>
-
-          <div class="footer">Tip: This is fully client-side. You can inspect and modify code in the browser. Do not use for real money.</div>
+    <div class="card">
+      <div class="status">
+        <div>
+          <div class="balance-area">Balance (demo points)</div>
+          <div id="balance" class="balance-num">1000</div>
         </div>
-
-        <div class="card" style="margin-top:12px">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <div><strong>History</strong> <span class="muted">(latest first)</span></div>
-            <div class="muted small">Wins/Losses</div>
-          </div>
-          <div id="history" class="history"></div>
+        <div style="text-align:right">
+          <div class="round-num">Round <span id="roundNumber">0</span></div>
         </div>
       </div>
 
-      <div>
-        <div class="card">
-          <h3 style="margin-top:0">Round Settings</h3>
-          <div style="margin-bottom:8px"><span class="muted small">Round length (seconds)</span></div>
-          <input id="roundLength" type="number" min="5" max="60" value="10" style="width:100%;padding:10px;border-radius:8px;border:0;background:rgba(255,255,255,0.02);color:inherit">
-
-          <div style="margin-top:12px"><span class="muted small">Payout multiplier (demo)</span></div>
-          <input id="multiplier" type="number" min="1" step="0.1" value="1.9" style="width:100%;padding:10px;border-radius:8px;border:0;background:rgba(255,255,255,0.02);color:inherit">
-
-          <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
-            <button id="resetBtn" style="padding:10px 12px;border-radius:10px;border:0;cursor:pointer">Reset Game</button>
-            <button id="fillBtn" style="padding:10px 12px;border-radius:10px;border:0;cursor:pointer">Add +1000 pts</button>
-          </div>
-
-          <hr style="margin:12px 0;border:0;border-top:1px solid rgba(255,255,255,0.03)">
-          <div class="muted small">About</div>
-          <div class="muted-2 small" style="margin-top:8px">This demo generates a random result each round. You can use it as a prototype for UI, testing, or teaching game flow. No servers, no payments.</div>
+      <div class="timer-wrap">
+        <div class="timer-box">
+          <div id="timer" class="timer-num">--</div>
+          <div class="timer-label">Time left</div>
         </div>
 
-        <div class="card" style="margin-top:12px">
-          <h3 style="margin-top:0">How to use</h3>
-          <ol style="padding-left:18px;margin:0 0 8px">
-            <li class="small muted">Set stake and round length.</li>
-            <li class="small muted">Click "Start Round". Timer starts.</li>
-            <li class="small muted">Choose a colour before timer ends.</li>
-            <li class="small muted">When timer hits 0, result (red/green) is revealed and balance is updated.</li>
-          </ol>
-
-          <div style="margin-top:8px" class="muted small">This is demo only. Do not use for real-money games.</div>
+        <div class="stake-input">
+          <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Stake (points)</div>
+          <input id="stake" type="number" min="10" step="10" value="100" inputmode="numeric" />
         </div>
+      </div>
+
+      <div class="choices">
+        <button id="btnRed" class="btn red">RED</button>
+        <button id="btnGreen" class="btn green">GREEN</button>
+      </div>
+
+      <div class="controls">
+        <button id="startBtn" class="start-btn">Start Round</button>
+        <div class="muted">Auto-start when previous round ends</div>
+      </div>
+
+      <div id="resultBox" class="result" style="display:none">
+        <div id="resultText">Result will appear here</div>
       </div>
     </div>
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div style="font-weight:800">History</div>
+        <div class="muted">Latest first</div>
+      </div>
+
+      <div id="history" class="history"></div>
+
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button id="resetBtn" class="start-btn" style="flex:1;background:#1f2937">Reset</button>
+        <button id="fillBtn" class="start-btn" style="flex:1;background:#0b1220;border:1px solid var(--glass)">+1000 pts</button>
+      </div>
+    </div>
+
+    <footer class="small">Tip: This is client-side demo. Do not use for real-money activities.</footer>
   </div>
 
   <script>
+    /* Mobile-friendly game logic (clean) */
     const balanceEl = document.getElementById('balance');
     const timerEl = document.getElementById('timer');
     const stakeInput = document.getElementById('stake');
@@ -142,13 +153,11 @@
     const resultBox = document.getElementById('resultBox');
     const resultText = document.getElementById('resultText');
     const historyEl = document.getElementById('history');
-    const roundLengthInput = document.getElementById('roundLength');
-    const multiplierInput = document.getElementById('multiplier');
     const resetBtn = document.getElementById('resetBtn');
     const fillBtn = document.getElementById('fillBtn');
     const roundNumberEl = document.getElementById('roundNumber');
 
-    const STORAGE_KEY = 'demo_colour_trading_v1';
+    const STORAGE_KEY = 'demo_colour_trading_v2';
     const defaultState = { balance: 1000, history: [], round: 0 };
     let state = loadState();
 
@@ -157,8 +166,10 @@
     let userChoice = null;
     let running = false;
 
+    // initial render
     renderState();
 
+    // events
     btnRed.addEventListener('click', ()=>choose('red'));
     btnGreen.addEventListener('click', ()=>choose('green'));
     startBtn.addEventListener('click', startRound);
@@ -166,30 +177,29 @@
     fillBtn.addEventListener('click', ()=>{ state.balance += 1000; saveState(); renderState(); });
 
     function choose(col){
-      if(!running){ return alert("Start round first"); }
+      if(!running){ alert('Start a round first'); return; }
       userChoice = col;
       highlightChoice();
     }
 
     function highlightChoice(){
-      btnRed.style.outline = userChoice === 'red' ? '4px solid rgba(255,107,107,0.25)' : 'none';
-      btnGreen.style.outline = userChoice === 'green' ? '4px solid rgba(133,240,155,0.25)' : 'none';
+      btnRed.style.boxShadow = userChoice === 'red' ? '0 8px 30px rgba(255,80,80,0.18)' : '';
+      btnGreen.style.boxShadow = userChoice === 'green' ? '0 8px 30px rgba(50,220,120,0.18)' : '';
     }
 
     function startRound(){
-      if(running){ return alert("Round already running"); }
-
-      const stake = parseInt(stakeInput.value)||0;
-      if(stake <= 0) return alert("Stake must be > 0");
-      if(stake > state.balance) return alert("Not enough balance");
+      if(running){ alert('Round already running'); return; }
+      const stake = Math.max(0, parseInt(stakeInput.value)||0);
+      if(stake <= 0){ alert('Stake must be > 0'); return; }
+      if(stake > state.balance){ alert('Not enough balance'); return; }
 
       running = true;
       userChoice = null; highlightChoice();
       resultBox.style.display = 'none';
 
-      timeLeft = parseInt(roundLengthInput.value) || 10;
+      timeLeft = 10; // default 10s mobile-friendly
       timerEl.textContent = timeLeft;
-      roundNumberIncrement();
+      incrementRound();
 
       timer = setInterval(()=>{
         timeLeft -= 1;
@@ -203,43 +213,29 @@
     }
 
     function resolveRound(){
-      const rand = Math.random();
+      // use crypto RNG when possible
+      const rand = (window.crypto && window.crypto.getRandomValues) ? (crypto.getRandomValues(new Uint32Array(1))[0] / 0xffffffff) : Math.random();
       const result = rand < 0.5 ? 'red' : 'green';
+      const stake = Math.max(0, parseInt(stakeInput.value)||0);
 
-      const stake = parseInt(stakeInput.value)||0;
-      const multiplier = parseFloat(multiplierInput.value)||1.9;
-
-      let won = false; 
-      let profit = 0;
-
+      let won = false, profit = 0;
+      const payoutMultiplier = 1.9; // fixed for simplicity
       if(userChoice && userChoice === result){
         won = true;
-        profit = Math.floor(stake * (multiplier - 1));
+        profit = Math.floor(stake * (payoutMultiplier - 1));
         state.balance += profit;
       } else {
         state.balance -= stake;
       }
 
-      const entry = {
-        time: new Date().toISOString(),
-        round: state.round,
-        stake,
-        choice: userChoice || 'none',
-        result,
-        won,
-        profit
-      };
-
+      const entry = { time: new Date().toISOString(), round: state.round, stake, choice: userChoice || 'none', result, won, profit };
       state.history.unshift(entry);
       state.history = state.history.slice(0,200);
 
       saveState(); renderState();
 
       resultBox.style.display = 'block';
-      resultText.innerHTML = `
-        Result: <strong>${result.toUpperCase()}</strong> —
-        ${won ? 'WIN (+'+profit+')' : 'LOSE (-'+stake+')'}
-      `;
+      resultText.innerHTML = `Result: <strong>${result.toUpperCase()}</strong> — <span class="${won ? 'win' : 'lose'}">${won ? '+'+profit : '-'+stake}</span>`;
 
       running = false;
       userChoice = null; highlightChoice();
@@ -249,49 +245,27 @@
       balanceEl.textContent = state.balance;
       roundNumberEl.textContent = state.round;
       historyEl.innerHTML = '';
-
       for(const h of state.history){
         const d = new Date(h.time);
         const div = document.createElement('div');
         div.className = 'hist-item';
         div.innerHTML = `
-          <div>
-            <div style="font-weight:700">Round ${h.round}</div>
-            <div class="muted small">${d.toLocaleString()}</div>
+          <div class="hist-left">
+            Round ${h.round}<div style="font-weight:600;color:var(--muted);font-size:12px">${d.toLocaleString()}</div>
           </div>
-          <div style="text-align:right">
-            <div style="font-weight:700">${h.result.toUpperCase()}</div>
-            <div class="muted small">${h.won?'+':'-'}${h.won?h.profit:h.stake}</div>
+          <div class="hist-right">
+            <div style="font-size:14px">${h.result.toUpperCase()}</div>
+            <div style="font-size:12px;color:var(--muted)">${h.won ? '+'+h.profit : '-'+h.stake}</div>
           </div>
         `;
         historyEl.appendChild(div);
       }
     }
 
-    function saveState(){
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    }
-
-    function loadState(){
-      try{
-        const s = JSON.parse(localStorage.getItem(STORAGE_KEY));
-        return Object.assign({}, defaultState, s||{});
-      }catch(e){
-        return Object.assign({}, defaultState);
-      }
-    }
-
-    function resetGame(){
-      if(confirm("Reset demo data?")){
-        state = Object.assign({}, defaultState);
-        saveState(); renderState();
-      }
-    }
-
-    function roundNumberIncrement(){
-      state.round = (state.round || 0) + 1;
-    }
-
+    function saveState(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} }
+    function loadState(){ try{ const s = JSON.parse(localStorage.getItem(STORAGE_KEY)); return Object.assign({}, defaultState, s||{}); }catch(e){ return Object.assign({}, defaultState); } }
+    function resetGame(){ if(confirm('Reset demo data?')){ state = Object.assign({}, defaultState); saveState(); renderState(); } }
+    function incrementRound(){ state.round = (state.round || 0) + 1; saveState(); }
   </script>
 </body>
-                                               </html>
+</html>
