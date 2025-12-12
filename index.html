@@ -3,431 +3,418 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Tirupati Club Pro</title>
+    <title>Krish Club Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary-orange: #FF9800;
-            --deep-orange: #FF5722;
+            --primary: #FF9800;
+            --secondary: #FF5722;
+            --bg: #f7f8ff;
+            --text: #333;
+            --white: #fff;
             --green: #4CAF50;
-            --violet: #9C27B0;
             --red: #F44336;
-            --bg-gray: #f5f5f5;
-            --text-dark: #333;
+            --violet: #9C27B0;
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--bg-gray);
-            margin: 0; padding: 0;
-            display: flex; justify-content: center;
+            font-family: 'Roboto', sans-serif; background: var(--bg); margin: 0;
+            display: flex; justify-content: center; min-height: 100vh;
         }
 
         /* Mobile Container */
-        .app-container {
-            width: 100%; max-width: 480px;
-            background: #fff; min-height: 100vh;
-            padding-bottom: 80px; position: relative;
+        .app {
+            width: 100%; max-width: 480px; background: #fff;
+            min-height: 100vh; position: relative; padding-bottom: 70px;
+            overflow-x: hidden;
         }
 
-        /* --- HEADER --- */
-        .header {
-            background: linear-gradient(to right, #ff9a00, #ff5320);
-            padding: 15px; color: white;
-            border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;
-            padding-bottom: 30px;
+        /* --- AUTH PAGES (LOGIN/REGISTER) --- */
+        .auth-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #ff9a00, #ff5320); z-index: 2000;
+            display: flex; flex-direction: column; justify-content: center; padding: 30px;
+            color: white; transition: 0.3s;
         }
-        .top-nav { display: flex; justify-content: space-between; align-items: center; font-size: 18px; margin-bottom: 20px; }
-        .logo-text { font-weight: bold; font-size: 20px; text-align: center; }
+        .auth-screen.hidden { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+        
+        .auth-box {
+            background: white; color: #333; padding: 30px; border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .auth-title { font-size: 24px; font-weight: bold; margin-bottom: 20px; text-align: center; }
+        .input-group { margin-bottom: 15px; }
+        .input-group label { font-size: 12px; color: #777; display: block; margin-bottom: 5px; }
+        .input-field {
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;
+            font-size: 16px; transition: 0.3s;
+        }
+        .input-field:focus { border-color: var(--primary); }
+        .btn-main {
+            width: 100%; padding: 14px; background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white; border: none; border-radius: 25px; font-size: 16px; font-weight: bold;
+            cursor: pointer; margin-top: 10px; box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+        }
+        .auth-link { text-align: center; margin-top: 15px; font-size: 14px; color: var(--secondary); cursor: pointer; }
+
+        /* --- MAIN LAYOUT --- */
+        .header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            padding: 15px 20px 40px; color: white; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;
+        }
+        .nav-top { display: flex; justify-content: space-between; align-items: center; font-size: 18px; margin-bottom: 20px; }
         
         .wallet-card {
-            background: white; border-radius: 15px; padding: 20px;
-            text-align: center; color: #333;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background: white; border-radius: 15px; padding: 20px; text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); margin-top: -30px; margin-left: 15px; margin-right: 15px;
+            position: relative; z-index: 10;
         }
-        .balance-amount { font-size: 32px; font-weight: bold; margin: 10px 0; }
-        .wallet-buttons { display: flex; gap: 15px; margin-top: 15px; }
-        .action-btn {
-            flex: 1; border: none; padding: 12px; border-radius: 25px;
-            color: white; font-size: 16px; font-weight: 500; cursor: pointer;
-        }
-        .btn-withdraw { background: linear-gradient(to right, #ff8a80, #e53935); }
-        .btn-deposit { background: linear-gradient(to right, #66bb6a, #43a047); }
-
-        /* --- NOTICE BAR --- */
-        .notice-bar {
-            background: white; padding: 10px 15px; border-radius: 20px;
-            margin: -20px 15px 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 2;
-        }
-
-        /* --- TABS --- */
-        .game-tabs { display: flex; justify-content: space-between; padding: 0 10px; margin-bottom: 20px; }
-        .tab-item { text-align: center; opacity: 0.6; transition: 0.3s; cursor: pointer; }
-        .tab-item.active { opacity: 1; transform: scale(1.05); }
-        .tab-icon {
-            width: 50px; height: 50px; background: #eee; border-radius: 50%;
-            margin: 0 auto 5px; display: flex; align-items: center; justify-content: center;
-        }
-        .tab-item.active .tab-icon { background: linear-gradient(135deg, #ff9800, #ff5722); color: white; }
-        .tab-text { font-size: 12px; color: #555; }
-
-        /* --- TIMER AREA --- */
+        .balance-txt { font-size: 32px; font-weight: bold; color: #333; margin: 10px 0; }
+        .wallet-actions { display: flex; gap: 15px; margin-top: 15px; }
+        .w-btn { flex: 1; padding: 10px; border-radius: 20px; color: white; border: none; font-weight: 500; }
+        
+        /* --- GAME UI --- */
         .game-area {
-            background: linear-gradient(to right, #ffa726, #fb8c00);
-            margin: 0 15px; border-radius: 15px; padding: 15px;
-            color: white; display: flex; justify-content: space-between; align-items: center;
+            margin: 20px 15px; padding: 15px; background: linear-gradient(to right, #ffa726, #fb8c00);
+            border-radius: 15px; color: white; display: flex; justify-content: space-between;
             position: relative; overflow: hidden;
         }
         .game-area::before {
-            content: ''; position: absolute; top: -20px; left: -20px;
-            width: 100px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 50%;
+            content: ''; position: absolute; top: -20px; left: -20px; width: 100px; height: 100px;
+            background: rgba(255,255,255,0.1); border-radius: 50%;
         }
-        .balls-preview { display: flex; gap: 5px; margin-top: 5px; }
-        .mini-ball {
-            width: 25px; height: 25px; border-radius: 50%; background: white;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 12px; font-weight: bold; color: white;
-        }
-        .countdown-display { font-size: 28px; font-weight: bold; letter-spacing: 2px; margin: 5px 0; }
+        .timer-box { text-align: right; }
+        .countdown { font-size: 28px; font-weight: bold; letter-spacing: 2px; }
 
-        /* --- CONTROLS --- */
-        .bet-pad { padding: 20px 15px; }
-        .color-row { display: flex; gap: 10px; margin-bottom: 20px; }
-        .btn-color {
-            flex: 1; border: none; padding: 12px; border-radius: 8px;
-            color: white; font-size: 16px; cursor: pointer;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+        .bet-controls { padding: 0 15px; }
+        .color-btns { display: flex; gap: 10px; margin-bottom: 20px; }
+        .c-btn {
+            flex: 1; padding: 12px; border: none; border-radius: 8px; color: white;
+            font-size: 16px; font-weight: 500; box-shadow: 0 3px 5px rgba(0,0,0,0.2);
         }
-        .btn-green { background: #4CAF50; }
-        .btn-violet { background: #9C27B0; }
-        .btn-red { background: #F44336; }
+        
+        /* --- TABS & PAGES --- */
+        .page-content { display: none; padding-bottom: 80px; }
+        .page-content.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .numbers-grid {
-            display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px;
-            margin-bottom: 20px; padding: 10px; background: #fafafa; border-radius: 10px;
-        }
-        .num-btn {
-            aspect-ratio: 1; border-radius: 50%; border: none; color: white;
-            font-size: 20px; font-weight: bold; cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
+        /* Wallet Page Specifics */
+        .recharge-options { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .amt-opt { padding: 10px; border: 1px solid #ddd; border-radius: 5px; text-align: center; }
+        .amt-opt.selected { border-color: var(--primary); background: #fff3e0; color: var(--primary); }
 
-        /* Ball Colors */
-        .ball-green { background: #4CAF50; }
-        .ball-red { background: #F44336; }
-        .ball-violet { background: #9C27B0; }
-        .ball-0 { background: linear-gradient(135deg, #F44336 50%, #9C27B0 50%); }
-        .ball-5 { background: linear-gradient(135deg, #4CAF50 50%, #9C27B0 50%); }
-
-        /* --- HISTORY --- */
-        .history-section { padding: 0 15px; }
-        .result-table {
-            width: 100%; background: white; border-radius: 10px;
-            border-collapse: collapse; overflow: hidden; font-size: 12px; text-align: center;
+        /* --- BOTTOM NAV --- */
+        .bottom-nav {
+            position: fixed; bottom: 0; width: 100%; max-width: 480px;
+            background: white; display: flex; justify-content: space-around;
+            padding: 10px 0; border-top: 1px solid #eee; box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            z-index: 100;
         }
-        .result-table th { background: #ff9800; color: white; padding: 12px; }
-        .result-table td { padding: 12px; border-bottom: 1px solid #eee; }
-        .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+        .nav-item { text-align: center; color: #999; font-size: 12px; flex: 1; cursor: pointer; }
+        .nav-item i { font-size: 20px; display: block; margin-bottom: 4px; }
+        .nav-item.active { color: var(--primary); }
 
-        /* --- BETTING MODAL (POPUP) --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); z-index: 999; display: none;
-            justify-content: center; align-items: flex-end;
+        /* --- MODAL --- */
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);
+            z-index: 2000; display: none; justify-content: center; align-items: flex-end;
         }
-        .modal-overlay.open { display: flex; }
-        .bottom-sheet {
-            background: white; width: 100%; max-width: 480px;
-            border-top-left-radius: 20px; border-top-right-radius: 20px;
-            padding: 20px; animation: slideUp 0.3s ease;
+        .modal.open { display: flex; }
+        .modal-sheet {
+            background: white; width: 100%; max-width: 480px; border-top-left-radius: 20px;
+            border-top-right-radius: 20px; padding: 25px; animation: slideUp 0.3s;
         }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        
-        .sheet-header {
-            display: flex; justify-content: center; align-items: center;
-            margin-bottom: 20px; font-weight: bold; font-size: 18px; position: relative;
-        }
-        .sheet-header .tag-badge {
-            position: absolute; left: 0; padding: 2px 10px; border-radius: 4px; color: white; font-size: 12px;
-        }
-        .money-select { display: flex; gap: 10px; margin-bottom: 20px; }
-        .money-btn {
-            flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 5px; background: #f9f9f9;
-        }
-        .money-btn.active { background: #ff9800; color: white; border-color: #ff9800; }
-        
-        .action-row { display: flex; gap: 10px; margin-top: 20px; }
-        .sheet-btn { flex: 1; padding: 12px; border: none; border-radius: 25px; font-weight: bold; font-size: 16px; }
-        .btn-cancel { background: #eee; color: #333; }
-        .btn-confirm { background: #ff9800; color: white; }
 
-        /* Toast */
+        /* Utils */
+        .hidden { display: none !important; }
         .toast {
-            position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+            position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
             background: rgba(0,0,0,0.8); color: white; padding: 10px 20px;
-            border-radius: 20px; font-size: 14px; opacity: 0; pointer-events: none; transition: 0.3s; z-index: 1000;
+            border-radius: 20px; font-size: 14px; opacity: 0; pointer-events: none; transition: 0.3s;
         }
         .toast.show { opacity: 1; }
-
     </style>
 </head>
 <body>
 
-    <div class="app-container">
+    <div class="app">
+        <div id="authScreen" class="auth-screen">
+            <div class="auth-box" id="loginBox">
+                <div class="auth-title">Login</div>
+                <div class="input-group">
+                    <label>Phone Number</label>
+                    <input type="number" id="loginPhone" class="input-field" placeholder="9876543210">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPass" class="input-field" placeholder="••••••">
+                </div>
+                <button class="btn-main" onclick="handleLogin()">Log In</button>
+                <div class="auth-link" onclick="toggleAuth('register')">Create an account</div>
+            </div>
+
+            <div class="auth-box hidden" id="registerBox">
+                <div class="auth-title">Register</div>
+                <div class="input-group">
+                    <label>Phone Number</label>
+                    <input type="number" id="regPhone" class="input-field">
+                </div>
+                <div class="input-group">
+                    <label>Create Password</label>
+                    <input type="password" id="regPass" class="input-field">
+                </div>
+                <div class="input-group">
+                    <label>Invite Code (Optional)</label>
+                    <input type="text" class="input-field" placeholder="X7Z29">
+                </div>
+                <button class="btn-main" onclick="handleRegister()">Register</button>
+                <div class="auth-link" onclick="toggleAuth('login')">Already have an account? Login</div>
+            </div>
+        </div>
+
         <div class="header">
-            <div class="top-nav">
-                <i class="fas fa-chevron-left"></i>
-                <div class="logo-text">TIRUPATI <span style="font-size:12px; display:block; line-height:10px;">CLUB</span></div>
-                <div style="display:flex; gap:15px;"><i class="fas fa-headset"></i><i class="fas fa-download"></i></div>
+            <div class="nav-top">
+                <div style="font-weight:bold;">TIRUPATI CLUB</div>
+                <div><i class="fas fa-headset"></i></div>
             </div>
-            <div class="wallet-card">
-                <div><i class="fas fa-wallet" style="color:#ff9800"></i> Wallet balance</div>
-                <div class="balance-amount">₹ <span id="userBalance">0.00</span></div>
-                <div class="wallet-buttons">
-                    <button class="action-btn btn-withdraw" onclick="alert('Withdrawal feature is currently disabled in Demo.')">Withdraw</button>
-                    <button class="action-btn btn-deposit" onclick="addFakeMoney()">Deposit</button>
+            <div style="text-align:center; font-size:14px; opacity:0.8;">Welcome back, <span id="displayUser">User</span></div>
+        </div>
+
+        <div class="wallet-card">
+            <div style="color:#777; font-size:12px;">Total Balance</div>
+            <div class="balance-txt">₹ <span id="balance">0.00</span></div>
+            <div class="wallet-actions">
+                <button class="w-btn" style="background:#F44336;" onclick="showWithdraw()">Withdraw</button>
+                <button class="w-btn" style="background:#4CAF50;" onclick="showRecharge()">Deposit</button>
+            </div>
+        </div>
+
+        <div id="page-home" class="page-content active">
+            <div class="game-area">
+                <div>
+                    <div style="font-size:12px; margin-bottom:5px;"><i class="fas fa-trophy"></i> Win Go 30Sec</div>
+                    <div style="font-size:20px; font-weight:bold;">Period</div>
+                    <div id="periodID" style="font-size:16px; opacity:0.9;">20241001</div>
+                </div>
+                <div class="timer-box">
+                    <div style="font-size:12px; opacity:0.9;">Time Remaining</div>
+                    <div class="countdown" id="timer">00:30</div>
+                </div>
+            </div>
+
+            <div class="bet-controls">
+                <div class="color-btns">
+                    <button class="c-btn" style="background:#4CAF50;" onclick="openBet('Green')">Green</button>
+                    <button class="c-btn" style="background:#9C27B0;" onclick="openBet('Violet')">Violet</button>
+                    <button class="c-btn" style="background:#F44336;" onclick="openBet('Red')">Red</button>
+                </div>
+                <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:10px; margin-bottom:20px;">
+                    <button onclick="openBet('0')" class="c-btn" style="background:linear-gradient(135deg,#F44336,#9C27B0); padding:10px;">0</button>
+                    <button onclick="openBet('1')" class="c-btn" style="background:#4CAF50; padding:10px;">1</button>
+                    <button onclick="openBet('2')" class="c-btn" style="background:#F44336; padding:10px;">2</button>
+                    <button onclick="openBet('3')" class="c-btn" style="background:#4CAF50; padding:10px;">3</button>
+                    <button onclick="openBet('4')" class="c-btn" style="background:#F44336; padding:10px;">4</button>
+                    <button onclick="openBet('5')" class="c-btn" style="background:linear-gradient(135deg,#4CAF50,#9C27B0); padding:10px;">5</button>
+                    <button onclick="openBet('6')" class="c-btn" style="background:#F44336; padding:10px;">6</button>
+                    <button onclick="openBet('7')" class="c-btn" style="background:#4CAF50; padding:10px;">7</button>
+                    <button onclick="openBet('8')" class="c-btn" style="background:#F44336; padding:10px;">8</button>
+                    <button onclick="openBet('9')" class="c-btn" style="background:#4CAF50; padding:10px;">9</button>
+                </div>
+            </div>
+
+            <div style="padding:0 20px;">
+                <h4 style="color:#555;">Record</h4>
+                <div id="historyList" style="display:flex; flex-direction:column; gap:10px;">
+                    </div>
+            </div>
+        </div>
+
+        <div id="page-wallet" class="page-content">
+            <div style="padding:20px;">
+                <h3>Deposit Funds</h3>
+                <div class="recharge-options">
+                    <div class="amt-opt" onclick="selectRecharge(500)">500</div>
+                    <div class="amt-opt" onclick="selectRecharge(1000)">1000</div>
+                    <div class="amt-opt" onclick="selectRecharge(5000)">5000</div>
+                </div>
+                <div style="margin-top:20px;">
+                    <label style="font-size:12px; color:#777;">UPI ID / Transaction Ref</label>
+                    <input type="text" class="input-field" placeholder="Enter Ref No." style="margin-top:5px;">
+                </div>
+                <button class="btn-main" onclick="processRecharge()">Pay Now (Demo)</button>
+            </div>
+        </div>
+
+        <div id="page-account" class="page-content">
+            <div style="padding:20px;">
+                <div style="display:flex; align-items:center; gap:15px; margin-bottom:20px;">
+                    <div style="width:60px; height:60px; background:#ddd; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; color:#fff; background:var(--primary);">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight:bold; font-size:18px;" id="profilePhone">User</div>
+                        <div style="font-size:12px; color:#777;">UID: 8829102</div>
+                    </div>
+                </div>
+                <div style="background:#fff; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.05);">
+                    <div style="padding:15px; border-bottom:1px solid #eee;">Game History</div>
+                    <div style="padding:15px; border-bottom:1px solid #eee;">Transaction History</div>
+                    <div style="padding:15px; border-bottom:1px solid #eee;">Promotion</div>
+                    <div style="padding:15px; color:red; cursor:pointer;" onclick="logout()">Logout</div>
                 </div>
             </div>
         </div>
 
-        <div class="notice-bar">
-            <i class="fas fa-volume-up" style="color:#ff9800"></i>
-            <span style="font-size:12px; color:#555; margin-left:10px;">Welcome to Tirupati Club!</span>
-            <button style="background:#ff9800; color:white; border:none; padding:5px 15px; border-radius:15px;">Detail</button>
-        </div>
-
-        <div class="game-tabs">
-            <div class="tab-item active" onclick="switchTab(this, '30Sec')">
-                <div class="tab-icon"><i class="fas fa-stopwatch"></i></div>
-                <div class="tab-text">Win Go<br>30Sec</div>
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="nav('home', this)">
+                <i class="fas fa-home"></i> Home
             </div>
-            <div class="tab-item" onclick="switchTab(this, '1Min')">
-                <div class="tab-icon"><i class="fas fa-stopwatch"></i></div>
-                <div class="tab-text">Win Go<br>1Min</div>
+            <div class="nav-item" onclick="nav('wallet', this)">
+                <i class="fas fa-wallet"></i> Wallet
             </div>
-            <div class="tab-item" onclick="switchTab(this, '3Min')">
-                <div class="tab-icon"><i class="fas fa-stopwatch"></i></div>
-                <div class="tab-text">Win Go<br>3Min</div>
-            </div>
-            <div class="tab-item" onclick="switchTab(this, '5Min')">
-                <div class="tab-icon"><i class="fas fa-stopwatch"></i></div>
-                <div class="tab-text">Win Go<br>5Min</div>
+            <div class="nav-item" onclick="nav('account', this)">
+                <i class="fas fa-user"></i> Account
             </div>
         </div>
+    </div>
 
-        <div class="game-area">
-            <div>
-                <div style="border:1px solid rgba(255,255,255,0.5); padding:5px 10px; border-radius:15px; font-size:12px; display:inline-block;">
-                    <i class="fas fa-book"></i> How to play
-                </div>
-                <div class="balls-preview">
-                    <div class="mini-ball ball-red">4</div>
-                    <div class="mini-ball ball-0">0</div>
-                    <div class="mini-ball ball-green">1</div>
-                    <div class="mini-ball ball-5">5</div>
-                </div>
-                <div style="font-size:12px; margin-top:5px;" id="gameTitle">Win Go 30Sec</div>
-            </div>
-            <div style="text-align:right;">
-                <div style="font-size:12px; opacity:0.9;">Time remaining</div>
-                <div class="countdown-display" id="timer">00:16</div>
-                <div style="font-size:14px; opacity:0.9;" id="periodId">20251212001</div>
-            </div>
-        </div>
-
-        <div class="bet-pad">
-            <div class="color-row">
-                <button class="btn-color btn-green" onclick="openBet('Green', '#4CAF50')">Green</button>
-                <button class="btn-color btn-violet" onclick="openBet('Violet', '#9C27B0')">Violet</button>
-                <button class="btn-color btn-red" onclick="openBet('Red', '#F44336')">Red</button>
-            </div>
-            <div class="numbers-grid">
-                <button class="num-btn ball-0" onclick="openBet('0', '#F44336')">0</button>
-                <button class="num-btn ball-green" onclick="openBet('1', '#4CAF50')">1</button>
-                <button class="num-btn ball-red" onclick="openBet('2', '#F44336')">2</button>
-                <button class="num-btn ball-green" onclick="openBet('3', '#4CAF50')">3</button>
-                <button class="num-btn ball-red" onclick="openBet('4', '#F44336')">4</button>
-                <button class="num-btn ball-5" onclick="openBet('5', '#4CAF50')">5</button>
-                <button class="num-btn ball-red" onclick="openBet('6', '#F44336')">6</button>
-                <button class="num-btn ball-green" onclick="openBet('7', '#4CAF50')">7</button>
-                <button class="num-btn ball-red" onclick="openBet('8', '#F44336')">8</button>
-                <button class="num-btn ball-green" onclick="openBet('9', '#4CAF50')">9</button>
+    <div class="modal" id="betModal">
+        <div class="modal-sheet">
+            <h3>Join <span id="targetName">Green</span></h3>
+            <p>Balance: ₹ <span id="modalBal"></span></p>
+            <div style="margin:20px 0;">
+                <label>Amount</label>
+                <input type="number" id="betAmount" class="input-field" value="10">
             </div>
             <div style="display:flex; gap:10px;">
-                <button class="btn-color" style="background:#FFC107" onclick="openBet('Big', '#FFC107')">Big</button>
-                <button class="btn-color" style="background:#64B5F6" onclick="openBet('Small', '#64B5F6')">Small</button>
-            </div>
-        </div>
-
-        <div class="history-section">
-            <h4 style="color:#777; margin-bottom:10px;">Game History</h4>
-            <table class="result-table">
-                <thead><tr><th>Period</th><th>Number</th><th>Big/Small</th><th>Color</th></tr></thead>
-                <tbody id="historyTable">
-                    </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="betModal">
-        <div class="bottom-sheet">
-            <div class="sheet-header">
-                <span class="tag-badge" id="modalBadge">Win Go 30Sec</span>
-                Select <span id="selectedTarget" style="margin-left:5px;">Green</span>
-            </div>
-            <div style="margin-bottom:10px;">Contract Money</div>
-            <div class="money-select">
-                <button class="money-btn active" onclick="selectMoney(1)">1</button>
-                <button class="money-btn" onclick="selectMoney(10)">10</button>
-                <button class="money-btn" onclick="selectMoney(100)">100</button>
-                <button class="money-btn" onclick="selectMoney(1000)">1000</button>
-            </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                <span>Quantity</span>
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <button class="money-btn" onclick="changeQty(-1)">-</button>
-                    <span id="qtyDisplay">1</span>
-                    <button class="money-btn" onclick="changeQty(1)">+</button>
-                </div>
-            </div>
-            <div style="text-align:right; font-weight:bold; color:#ff9800; margin-bottom:15px;">
-                Total amount: ₹ <span id="totalAmt">1.00</span>
-            </div>
-            <div class="action-row">
-                <button class="sheet-btn btn-cancel" onclick="closeModal()">Cancel</button>
-                <button class="sheet-btn btn-confirm" onclick="confirmBet()">Confirm</button>
+                <button class="btn-main" style="background:#ddd; color:#333;" onclick="closeModal()">Cancel</button>
+                <button class="btn-main" onclick="confirmBet()">Confirm</button>
             </div>
         </div>
     </div>
 
-    <div id="toast" class="toast">Action Successful</div>
+    <div id="toast" class="toast">Action</div>
 
     <script>
-        // State
-        let balance = 0.00;
-        let currentPeriod = 20251212001;
-        let timeLeft = 30;
-        let selectedBet = null;
-        let baseAmount = 1;
-        let quantity = 1;
+        // --- STATE MANAGEMENT ---
+        let state = {
+            loggedIn: false,
+            user: null,
+            balance: 0,
+            period: 20241001,
+            timer: 30
+        };
 
-        // --- CORE FUNCTIONS ---
-
-        function init() {
-            // Load some fake history
-            addHistoryRow(currentPeriod - 1, 4, 'Small', 'red');
-            addHistoryRow(currentPeriod - 2, 0, 'Small', 'violet');
-            addHistoryRow(currentPeriod - 3, 7, 'Big', 'green');
-            
-            // Start Timer
-            setInterval(updateTimer, 1000);
-        }
-
-        function updateTimer() {
-            timeLeft--;
-            if (timeLeft < 0) {
-                timeLeft = 30;
-                currentPeriod++;
-                document.getElementById('periodId').innerText = currentPeriod;
-                showToast("New Period Started");
-                // Simulate new result
-                let rNum = Math.floor(Math.random() * 10);
-                let rColor = (rNum === 0 || rNum === 5) ? 'violet' : (rNum % 2 === 0 ? 'red' : 'green');
-                let rBS = rNum >= 5 ? 'Big' : 'Small';
-                addHistoryRow(currentPeriod - 1, rNum, rBS, rColor);
-            }
-            
-            // Format 00:XX
-            let secStr = timeLeft < 10 ? '0' + timeLeft : '' + timeLeft;
-            document.getElementById('timer').innerHTML = `
-                <span style="background:rgba(255,255,255,0.2); padding:2px 5px; border-radius:4px;">0</span>
-                <span style="background:rgba(255,255,255,0.2); padding:2px 5px; border-radius:4px;">0</span> : 
-                <span style="background:rgba(255,255,255,0.2); padding:2px 5px; border-radius:4px;">${secStr[0]}</span>
-                <span style="background:rgba(255,255,255,0.2); padding:2px 5px; border-radius:4px;">${secStr[1]}</span>
-            `;
-        }
-
-        // --- INTERACTION ---
-
-        function switchTab(el, time) {
-            document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
-            el.classList.add('active');
-            document.getElementById('gameTitle').innerText = "Win Go " + time;
-            document.getElementById('modalBadge').innerText = "Win Go " + time;
-            showToast("Switched to Win Go " + time);
-        }
-
-        function addFakeMoney() {
-            balance += 1000;
-            updateBalance();
-            showToast("Deposit Successful: +₹1000");
-        }
-
-        function updateBalance() {
-            document.getElementById('userBalance').innerText = balance.toFixed(2);
-        }
-
-        // --- BETTING LOGIC ---
-
-        function openBet(target, color) {
-            selectedBet = target;
-            document.getElementById('selectedTarget').innerText = target;
-            document.getElementById('selectedTarget').style.color = color;
-            document.getElementById('modalBadge').style.background = color;
-            
-            // Reset modal values
-            baseAmount = 1;
-            quantity = 1;
-            updateTotal();
-            
-            document.getElementById('betModal').classList.add('open');
-        }
-
-        function closeModal() {
-            document.getElementById('betModal').classList.remove('open');
-        }
-
-        function selectMoney(amt) {
-            baseAmount = amt;
-            // Visual toggle active class
-            document.querySelectorAll('.money-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-            updateTotal();
-        }
-
-        function changeQty(change) {
-            if (quantity + change >= 1) {
-                quantity += change;
-                document.getElementById('qtyDisplay').innerText = quantity;
-                updateTotal();
-            }
-        }
-
-        function updateTotal() {
-            document.getElementById('totalAmt').innerText = (baseAmount * quantity).toFixed(2);
-        }
-
-        function confirmBet() {
-            let total = baseAmount * quantity;
-            if (balance >= total) {
-                balance -= total;
-                updateBalance();
-                showToast(`Bet Placed on ${selectedBet} for ₹${total}`);
-                closeModal();
+        // --- INIT ---
+        window.onload = function() {
+            loadState();
+            if(!state.loggedIn) {
+                document.getElementById('authScreen').classList.remove('hidden');
             } else {
-                showToast("Insufficient Balance! Please Deposit.");
+                updateUI();
+                document.getElementById('authScreen').classList.add('hidden');
+                startTimer();
+            }
+        };
+
+        function loadState() {
+            const saved = localStorage.getItem('tirupatiState');
+            if(saved) state = JSON.parse(saved);
+        }
+
+        function saveState() {
+            localStorage.setItem('tirupatiState', JSON.stringify(state));
+            updateUI();
+        }
+
+        function updateUI() {
+            document.getElementById('balance').innerText = state.balance.toFixed(2);
+            if(state.user) {
+                document.getElementById('displayUser').innerText = state.user;
+                document.getElementById('profilePhone').innerText = state.user;
             }
         }
 
-        // --- HISTORY ---
-        function addHistoryRow(period, num, bs, colorName) {
-            let colorHex = colorName === 'green' ? '#4CAF50' : (colorName === 'red' ? '#F44336' : '#9C27B0');
-            if (num === 0) colorHex = 'linear-gradient(to right, #F44336, #9C27B0)';
-            if (num === 5) colorHex = 'linear-gradient(to right, #4CAF50, #9C27B0)';
+        // --- AUTH ---
+        function toggleAuth(type) {
+            if(type === 'register') {
+                document.getElementById('loginBox').classList.add('hidden');
+                document.getElementById('registerBox').classList.remove('hidden');
+            } else {
+                document.getElementById('loginBox').classList.remove('hidden');
+                document.getElementById('registerBox').classList.add('hidden');
+            }
+        }
 
-            let row = `<tr>
-                <td>${pe
+        function handleLogin() {
+            const ph = document.getElementById('loginPhone').value;
+            if(ph.length < 10) return showToast("Invalid Phone");
+            state.user = ph;
+            state.loggedIn = true;
+            saveState();
+            document.getElementById('authScreen').classList.add('hidden');
+            startTimer();
+        }
+
+        function handleRegister() {
+            const ph = document.getElementById('regPhone').value;
+            if(ph.length < 10) return showToast("Invalid Phone");
+            state.user = ph;
+            state.loggedIn = true;
+            state.balance = 50; // Bonus
+            saveState();
+            document.getElementById('authScreen').classList.add('hidden');
+            showToast("Registered! ₹50 Bonus Added");
+            startTimer();
+        }
+
+        function logout() {
+            localStorage.removeItem('tirupatiState');
+            location.reload();
+        }
+
+        // --- NAVIGATION ---
+        function nav(page, el) {
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + page).classList.add('active');
+            
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        // --- GAME LOGIC ---
+        let interval;
+        function startTimer() {
+            clearInterval(interval);
+            interval = setInterval(() => {
+                state.timer--;
+                if(state.timer < 0) {
+                    state.timer = 30;
+                    state.period++;
+                    processResult();
+                }
+                document.getElementById('timer').innerText = `00:${state.timer < 10 ? '0'+state.timer : state.timer}`;
+                document.getElementById('periodID').innerText = state.period;
+            }, 1000);
+        }
+
+        function processResult() {
+            // Fake result generation
+            const colors = ['Green', 'Red', 'Violet'];
+            const res = colors[Math.floor(Math.random() * colors.length)];
+            const num = Math.floor(Math.random() * 10);
+            
+            const historyItem = document.createElement('div');
+            historyItem.innerHTML = `
+                <div style="background:white; padding:10px; border-radius:5px; display:flex; justify-content:space-between; font-size:12px; border-left:4px solid ${res === 'Red' ? '#F44336' : (res==='Green'?'#4CAF50':'#9C27B0')};">
+                    <span>${state.period - 1}</span>
+                    <span style="font-weight:bold;">${num} ${res}</span>
+                </div>
+            `;
+            const list = document.getElementById('historyList');
+            list.prepend(historyItem);
+            if(lis
