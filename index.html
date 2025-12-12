@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Krish Club Pro</title>
+    <title>Tirupati Club Final</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -11,410 +11,403 @@
         :root {
             --primary: #FF9800;
             --secondary: #FF5722;
-            --bg: #f7f8ff;
-            --text: #333;
-            --white: #fff;
+            --bg-gray: #f5f5f5;
             --green: #4CAF50;
-            --red: #F44336;
             --violet: #9C27B0;
+            --red: #F44336;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
         body {
-            font-family: 'Roboto', sans-serif; background: var(--bg); margin: 0;
+            font-family: 'Roboto', sans-serif; background: #f5f5f5; margin: 0;
             display: flex; justify-content: center; min-height: 100vh;
         }
 
-        /* Mobile Container */
-        .app {
+        .app-container {
             width: 100%; max-width: 480px; background: #fff;
             min-height: 100vh; position: relative; padding-bottom: 70px;
-            overflow-x: hidden;
         }
 
-        /* --- AUTH PAGES (LOGIN/REGISTER) --- */
-        .auth-screen {
+        /* --- LOGIN / REGISTER PAGE --- */
+        #authSection {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #ff9a00, #ff5320); z-index: 2000;
-            display: flex; flex-direction: column; justify-content: center; padding: 30px;
-            color: white; transition: 0.3s;
+            background: linear-gradient(135deg, #ff9a00, #ff5320);
+            z-index: 9999; display: flex; flex-direction: column; 
+            justify-content: center; padding: 30px;
+            transition: transform 0.4s ease;
         }
-        .auth-screen.hidden { transform: translateY(-100%); opacity: 0; pointer-events: none; }
         
-        .auth-box {
-            background: white; color: #333; padding: 30px; border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        .auth-card {
+            background: white; padding: 30px; border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
-        .auth-title { font-size: 24px; font-weight: bold; margin-bottom: 20px; text-align: center; }
-        .input-group { margin-bottom: 15px; }
-        .input-group label { font-size: 12px; color: #777; display: block; margin-bottom: 5px; }
-        .input-field {
-            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;
-            font-size: 16px; transition: 0.3s;
+        
+        .auth-header { text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 25px; color: #333; }
+        
+        .inp-box { margin-bottom: 15px; }
+        .inp-label { font-size: 13px; color: #666; margin-bottom: 5px; display: block; }
+        .inp-field {
+            width: 100%; padding: 12px; border: 1px solid #ddd; 
+            border-radius: 8px; font-size: 16px;
         }
-        .input-field:focus { border-color: var(--primary); }
-        .btn-main {
-            width: 100%; padding: 14px; background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white; border: none; border-radius: 25px; font-size: 16px; font-weight: bold;
-            cursor: pointer; margin-top: 10px; box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
-        }
-        .auth-link { text-align: center; margin-top: 15px; font-size: 14px; color: var(--secondary); cursor: pointer; }
+        .inp-field:focus { border-color: var(--primary); }
 
-        /* --- MAIN LAYOUT --- */
-        .header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            padding: 15px 20px 40px; color: white; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;
+        .btn-auth {
+            width: 100%; padding: 14px; border: none; border-radius: 25px;
+            background: linear-gradient(to right, #ff9a00, #ff5320);
+            color: white; font-size: 16px; font-weight: bold; cursor: pointer;
+            margin-top: 10px; box-shadow: 0 5px 10px rgba(255,87,34,0.3);
+            display: flex; justify-content: center; align-items: center; gap: 10px;
         }
-        .nav-top { display: flex; justify-content: space-between; align-items: center; font-size: 18px; margin-bottom: 20px; }
+        .btn-auth:active { transform: scale(0.98); }
         
-        .wallet-card {
-            background: white; border-radius: 15px; padding: 20px; text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08); margin-top: -30px; margin-left: 15px; margin-right: 15px;
+        .toggle-link {
+            text-align: center; margin-top: 20px; font-size: 14px; 
+            color: var(--secondary); cursor: pointer;
+        }
+
+        /* --- MAIN APP --- */
+        .header {
+            background: linear-gradient(to right, #ff9a00, #ff5320);
+            padding: 15px 20px 40px; color: white;
+            border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;
+        }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; font-size: 18px; }
+
+        .wallet-box {
+            background: white; margin: -30px 15px 10px; padding: 20px;
+            border-radius: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             position: relative; z-index: 10;
         }
-        .balance-txt { font-size: 32px; font-weight: bold; color: #333; margin: 10px 0; }
-        .wallet-actions { display: flex; gap: 15px; margin-top: 15px; }
-        .w-btn { flex: 1; padding: 10px; border-radius: 20px; color: white; border: none; font-weight: 500; }
-        
-        /* --- GAME UI --- */
-        .game-area {
-            margin: 20px 15px; padding: 15px; background: linear-gradient(to right, #ffa726, #fb8c00);
-            border-radius: 15px; color: white; display: flex; justify-content: space-between;
-            position: relative; overflow: hidden;
-        }
-        .game-area::before {
-            content: ''; position: absolute; top: -20px; left: -20px; width: 100px; height: 100px;
-            background: rgba(255,255,255,0.1); border-radius: 50%;
-        }
-        .timer-box { text-align: right; }
-        .countdown { font-size: 28px; font-weight: bold; letter-spacing: 2px; }
 
-        .bet-controls { padding: 0 15px; }
-        .color-btns { display: flex; gap: 10px; margin-bottom: 20px; }
+        .bal-display { font-size: 30px; font-weight: bold; margin: 10px 0; color: #333; }
+
+        .action-row { display: flex; gap: 10px; margin-top: 15px; }
+        .act-btn {
+            flex: 1; padding: 10px; border: none; border-radius: 20px; 
+            color: white; font-weight: 500; font-size: 14px;
+        }
+
+        /* Game Section */
+        .game-frame {
+            background: linear-gradient(to right, #ffa726, #fb8c00);
+            margin: 15px; border-radius: 15px; padding: 15px; color: white;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .timer-big { font-size: 26px; font-weight: bold; letter-spacing: 2px; }
+
+        .bet-area { padding: 0 15px; }
+        .color-group { display: flex; gap: 10px; margin-bottom: 20px; }
         .c-btn {
-            flex: 1; padding: 12px; border: none; border-radius: 8px; color: white;
-            font-size: 16px; font-weight: 500; box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+            flex: 1; padding: 12px; border: none; border-radius: 8px; 
+            color: white; font-size: 16px; font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        
-        /* --- TABS & PAGES --- */
-        .page-content { display: none; padding-bottom: 80px; }
-        .page-content.active { display: block; animation: fadeIn 0.3s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Wallet Page Specifics */
-        .recharge-options { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .amt-opt { padding: 10px; border: 1px solid #ddd; border-radius: 5px; text-align: center; }
-        .amt-opt.selected { border-color: var(--primary); background: #fff3e0; color: var(--primary); }
+        .num-grid {
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 20px;
+        }
+        .n-btn {
+            aspect-ratio: 1; border-radius: 50%; border: none; color: white;
+            font-size: 18px; font-weight: bold;
+        }
 
         /* --- BOTTOM NAV --- */
-        .bottom-nav {
+        .navbar {
             position: fixed; bottom: 0; width: 100%; max-width: 480px;
             background: white; display: flex; justify-content: space-around;
-            padding: 10px 0; border-top: 1px solid #eee; box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-            z-index: 100;
+            padding: 10px 0; border-top: 1px solid #eee; z-index: 100;
         }
-        .nav-item { text-align: center; color: #999; font-size: 12px; flex: 1; cursor: pointer; }
-        .nav-item i { font-size: 20px; display: block; margin-bottom: 4px; }
-        .nav-item.active { color: var(--primary); }
+        .nav-icon { text-align: center; color: #999; font-size: 12px; flex: 1; }
+        .nav-icon.active { color: var(--primary); }
+        .nav-icon i { font-size: 20px; display: block; margin-bottom: 4px; }
 
-        /* --- MODAL --- */
-        .modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);
-            z-index: 2000; display: none; justify-content: center; align-items: flex-end;
-        }
-        .modal.open { display: flex; }
-        .modal-sheet {
-            background: white; width: 100%; max-width: 480px; border-top-left-radius: 20px;
-            border-top-right-radius: 20px; padding: 25px; animation: slideUp 0.3s;
-        }
-        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-
-        /* Utils */
+        /* Helpers */
         .hidden { display: none !important; }
+        .loader {
+            border: 3px solid #f3f3f3; border-top: 3px solid #fff;
+            border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Toast */
         .toast {
-            position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
+            position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
             background: rgba(0,0,0,0.8); color: white; padding: 10px 20px;
-            border-radius: 20px; font-size: 14px; opacity: 0; pointer-events: none; transition: 0.3s;
+            border-radius: 20px; opacity: 0; pointer-events: none; transition: 0.3s; z-index: 2000;
         }
         .toast.show { opacity: 1; }
+
     </style>
 </head>
 <body>
 
-    <div class="app">
-        <div id="authScreen" class="auth-screen">
-            <div class="auth-box" id="loginBox">
-                <div class="auth-title">Login</div>
-                <div class="input-group">
-                    <label>Phone Number</label>
-                    <input type="number" id="loginPhone" class="input-field" placeholder="9876543210">
+    <div class="app-container">
+        
+        <div id="authSection">
+            <div id="loginForm" class="auth-card">
+                <div class="auth-header">Login</div>
+                <div class="inp-box">
+                    <label class="inp-label"><i class="fas fa-mobile-alt"></i> Phone Number</label>
+                    <input type="number" id="lPhone" class="inp-field" placeholder="Enter Mobile Number">
                 </div>
-                <div class="input-group">
-                    <label>Password</label>
-                    <input type="password" id="loginPass" class="input-field" placeholder="••••••">
+                <div class="inp-box">
+                    <label class="inp-label"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="lPass" class="inp-field" placeholder="Enter Password">
                 </div>
-                <button class="btn-main" onclick="handleLogin()">Log In</button>
-                <div class="auth-link" onclick="toggleAuth('register')">Create an account</div>
+                <button class="btn-auth" onclick="doLogin()">
+                    <span id="lBtnText">Log In</span>
+                    <div id="lLoader" class="loader hidden"></div>
+                </button>
+                <div class="toggle-link" onclick="showRegister()">Create an account</div>
             </div>
 
-            <div class="auth-box hidden" id="registerBox">
-                <div class="auth-title">Register</div>
-                <div class="input-group">
-                    <label>Phone Number</label>
-                    <input type="number" id="regPhone" class="input-field">
+            <div id="regForm" class="auth-card hidden">
+                <div class="auth-header">Register</div>
+                <div class="inp-box">
+                    <label class="inp-label">Phone Number</label>
+                    <input type="number" id="rPhone" class="inp-field" placeholder="Enter Mobile Number">
                 </div>
-                <div class="input-group">
-                    <label>Create Password</label>
-                    <input type="password" id="regPass" class="input-field">
+                <div class="inp-box">
+                    <label class="inp-label">Set Password</label>
+                    <input type="password" id="rPass" class="inp-field" placeholder="Create Password">
                 </div>
-                <div class="input-group">
-                    <label>Invite Code (Optional)</label>
-                    <input type="text" class="input-field" placeholder="X7Z29">
+                <div class="inp-box">
+                    <label class="inp-label">Invite Code</label>
+                    <input type="text" class="inp-field" placeholder="Optional">
                 </div>
-                <button class="btn-main" onclick="handleRegister()">Register</button>
-                <div class="auth-link" onclick="toggleAuth('login')">Already have an account? Login</div>
-            </div>
-        </div>
-
-        <div class="header">
-            <div class="nav-top">
-                <div style="font-weight:bold;">TIRUPATI CLUB</div>
-                <div><i class="fas fa-headset"></i></div>
-            </div>
-            <div style="text-align:center; font-size:14px; opacity:0.8;">Welcome back, <span id="displayUser">User</span></div>
-        </div>
-
-        <div class="wallet-card">
-            <div style="color:#777; font-size:12px;">Total Balance</div>
-            <div class="balance-txt">₹ <span id="balance">0.00</span></div>
-            <div class="wallet-actions">
-                <button class="w-btn" style="background:#F44336;" onclick="showWithdraw()">Withdraw</button>
-                <button class="w-btn" style="background:#4CAF50;" onclick="showRecharge()">Deposit</button>
+                <button class="btn-auth" onclick="doRegister()">
+                    <span id="rBtnText">Register</span>
+                    <div id="rLoader" class="loader hidden"></div>
+                </button>
+                <div class="toggle-link" onclick="showLogin()">Already have an account? Login</div>
             </div>
         </div>
 
-        <div id="page-home" class="page-content active">
-            <div class="game-area">
+        <div id="mainApp" class="hidden">
+            
+            <div class="header">
+                <div class="top-bar">
+                    <div style="font-weight:700;">TIRUPATI CLUB</div>
+                    <div><i class="fas fa-download"></i></div>
+                </div>
+                <div style="margin-top:10px; font-size:14px;">User: <span id="uName">Guest</span></div>
+            </div>
+
+            <div class="wallet-box">
+                <div style="color:#777; font-size:12px;">Available Balance</div>
+                <div class="bal-display">₹ <span id="balance">0.00</span></div>
+                <div class="action-row">
+                    <button class="act-btn" style="background:#F44336;" onclick="alert('Withdraw disabled in demo')">Withdraw</button>
+                    <button class="act-btn" style="background:#4CAF50;" onclick="deposit()">Deposit</button>
+                </div>
+            </div>
+
+            <div class="game-frame">
                 <div>
                     <div style="font-size:12px; margin-bottom:5px;"><i class="fas fa-trophy"></i> Win Go 30Sec</div>
-                    <div style="font-size:20px; font-weight:bold;">Period</div>
-                    <div id="periodID" style="font-size:16px; opacity:0.9;">20241001</div>
+                    <div id="periodID" style="font-size:16px;">20241001</div>
                 </div>
-                <div class="timer-box">
-                    <div style="font-size:12px; opacity:0.9;">Time Remaining</div>
-                    <div class="countdown" id="timer">00:30</div>
-                </div>
-            </div>
-
-            <div class="bet-controls">
-                <div class="color-btns">
-                    <button class="c-btn" style="background:#4CAF50;" onclick="openBet('Green')">Green</button>
-                    <button class="c-btn" style="background:#9C27B0;" onclick="openBet('Violet')">Violet</button>
-                    <button class="c-btn" style="background:#F44336;" onclick="openBet('Red')">Red</button>
-                </div>
-                <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:10px; margin-bottom:20px;">
-                    <button onclick="openBet('0')" class="c-btn" style="background:linear-gradient(135deg,#F44336,#9C27B0); padding:10px;">0</button>
-                    <button onclick="openBet('1')" class="c-btn" style="background:#4CAF50; padding:10px;">1</button>
-                    <button onclick="openBet('2')" class="c-btn" style="background:#F44336; padding:10px;">2</button>
-                    <button onclick="openBet('3')" class="c-btn" style="background:#4CAF50; padding:10px;">3</button>
-                    <button onclick="openBet('4')" class="c-btn" style="background:#F44336; padding:10px;">4</button>
-                    <button onclick="openBet('5')" class="c-btn" style="background:linear-gradient(135deg,#4CAF50,#9C27B0); padding:10px;">5</button>
-                    <button onclick="openBet('6')" class="c-btn" style="background:#F44336; padding:10px;">6</button>
-                    <button onclick="openBet('7')" class="c-btn" style="background:#4CAF50; padding:10px;">7</button>
-                    <button onclick="openBet('8')" class="c-btn" style="background:#F44336; padding:10px;">8</button>
-                    <button onclick="openBet('9')" class="c-btn" style="background:#4CAF50; padding:10px;">9</button>
+                <div style="text-align:right;">
+                    <div style="font-size:12px;">Time Remaining</div>
+                    <div class="timer-big" id="timer">00:30</div>
                 </div>
             </div>
 
-            <div style="padding:0 20px;">
-                <h4 style="color:#555;">Record</h4>
-                <div id="historyList" style="display:flex; flex-direction:column; gap:10px;">
-                    </div>
+            <div class="bet-area">
+                <div class="color-group">
+                    <button class="c-btn" style="background:#4CAF50;" onclick="placeBet('Green')">Green</button>
+                    <button class="c-btn" style="background:#9C27B0;" onclick="placeBet('Violet')">Violet</button>
+                    <button class="c-btn" style="background:#F44336;" onclick="placeBet('Red')">Red</button>
+                </div>
+                
+                <div class="num-grid">
+                    <button class="n-btn" style="background:linear-gradient(135deg,#F44336,#9C27B0)" onclick="placeBet('0')">0</button>
+                    <button class="n-btn" style="background:#4CAF50" onclick="placeBet('1')">1</button>
+                    <button class="n-btn" style="background:#F44336" onclick="placeBet('2')">2</button>
+                    <button class="n-btn" style="background:#4CAF50" onclick="placeBet('3')">3</button>
+                    <button class="n-btn" style="background:#F44336" onclick="placeBet('4')">4</button>
+                    <button class="n-btn" style="background:linear-gradient(135deg,#4CAF50,#9C27B0)" onclick="placeBet('5')">5</button>
+                    <button class="n-btn" style="background:#F44336" onclick="placeBet('6')">6</button>
+                    <button class="n-btn" style="background:#4CAF50" onclick="placeBet('7')">7</button>
+                    <button class="n-btn" style="background:#F44336" onclick="placeBet('8')">8</button>
+                    <button class="n-btn" style="background:#4CAF50" onclick="placeBet('9')">9</button>
+                </div>
             </div>
-        </div>
 
-        <div id="page-wallet" class="page-content">
-            <div style="padding:20px;">
-                <h3>Deposit Funds</h3>
-                <div class="recharge-options">
-                    <div class="amt-opt" onclick="selectRecharge(500)">500</div>
-                    <div class="amt-opt" onclick="selectRecharge(1000)">1000</div>
-                    <div class="amt-opt" onclick="selectRecharge(5000)">5000</div>
-                </div>
-                <div style="margin-top:20px;">
-                    <label style="font-size:12px; color:#777;">UPI ID / Transaction Ref</label>
-                    <input type="text" class="input-field" placeholder="Enter Ref No." style="margin-top:5px;">
-                </div>
-                <button class="btn-main" onclick="processRecharge()">Pay Now (Demo)</button>
+            <div style="padding:15px; margin-bottom:60px;">
+                <h4 style="color:#555; border-bottom:1px solid #eee; padding-bottom:10px;">Game Record</h4>
+                <div id="historyList"></div>
             </div>
-        </div>
 
-        <div id="page-account" class="page-content">
-            <div style="padding:20px;">
-                <div style="display:flex; align-items:center; gap:15px; margin-bottom:20px;">
-                    <div style="width:60px; height:60px; background:#ddd; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; color:#fff; background:var(--primary);">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div>
-                        <div style="font-weight:bold; font-size:18px;" id="profilePhone">User</div>
-                        <div style="font-size:12px; color:#777;">UID: 8829102</div>
-                    </div>
-                </div>
-                <div style="background:#fff; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.05);">
-                    <div style="padding:15px; border-bottom:1px solid #eee;">Game History</div>
-                    <div style="padding:15px; border-bottom:1px solid #eee;">Transaction History</div>
-                    <div style="padding:15px; border-bottom:1px solid #eee;">Promotion</div>
-                    <div style="padding:15px; color:red; cursor:pointer;" onclick="logout()">Logout</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="bottom-nav">
-            <div class="nav-item active" onclick="nav('home', this)">
-                <i class="fas fa-home"></i> Home
-            </div>
-            <div class="nav-item" onclick="nav('wallet', this)">
-                <i class="fas fa-wallet"></i> Wallet
-            </div>
-            <div class="nav-item" onclick="nav('account', this)">
-                <i class="fas fa-user"></i> Account
+            <div class="navbar">
+                <div class="nav-icon active"><i class="fas fa-home"></i> Home</div>
+                <div class="nav-icon"><i class="fas fa-chart-line"></i> Activity</div>
+                <div class="nav-icon"><i class="fas fa-wallet"></i> Wallet</div>
+                <div class="nav-icon" onclick="doLogout()"><i class="fas fa-user"></i> Account</div>
             </div>
         </div>
     </div>
 
-    <div class="modal" id="betModal">
-        <div class="modal-sheet">
-            <h3>Join <span id="targetName">Green</span></h3>
-            <p>Balance: ₹ <span id="modalBal"></span></p>
-            <div style="margin:20px 0;">
-                <label>Amount</label>
-                <input type="number" id="betAmount" class="input-field" value="10">
-            </div>
-            <div style="display:flex; gap:10px;">
-                <button class="btn-main" style="background:#ddd; color:#333;" onclick="closeModal()">Cancel</button>
-                <button class="btn-main" onclick="confirmBet()">Confirm</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="toast" class="toast">Action</div>
+    <div id="toast" class="toast">Message</div>
 
     <script>
-        // --- STATE MANAGEMENT ---
-        let state = {
-            loggedIn: false,
-            user: null,
-            balance: 0,
-            period: 20241001,
-            timer: 30
-        };
-
-        // --- INIT ---
-        window.onload = function() {
-            loadState();
-            if(!state.loggedIn) {
-                document.getElementById('authScreen').classList.remove('hidden');
-            } else {
-                updateUI();
-                document.getElementById('authScreen').classList.add('hidden');
-                startTimer();
-            }
-        };
-
-        function loadState() {
-            const saved = localStorage.getItem('tirupatiState');
-            if(saved) state = JSON.parse(saved);
-        }
-
-        function saveState() {
-            localStorage.setItem('tirupatiState', JSON.stringify(state));
-            updateUI();
-        }
-
-        function updateUI() {
-            document.getElementById('balance').innerText = state.balance.toFixed(2);
-            if(state.user) {
-                document.getElementById('displayUser').innerText = state.user;
-                document.getElementById('profilePhone').innerText = state.user;
-            }
-        }
-
-        // --- AUTH ---
-        function toggleAuth(type) {
-            if(type === 'register') {
-                document.getElementById('loginBox').classList.add('hidden');
-                document.getElementById('registerBox').classList.remove('hidden');
-            } else {
-                document.getElementById('loginBox').classList.remove('hidden');
-                document.getElementById('registerBox').classList.add('hidden');
-            }
-        }
-
-        function handleLogin() {
-            const ph = document.getElementById('loginPhone').value;
-            if(ph.length < 10) return showToast("Invalid Phone");
-            state.user = ph;
-            state.loggedIn = true;
-            saveState();
-            document.getElementById('authScreen').classList.add('hidden');
-            startTimer();
-        }
-
-        function handleRegister() {
-            const ph = document.getElementById('regPhone').value;
-            if(ph.length < 10) return showToast("Invalid Phone");
-            state.user = ph;
-            state.loggedIn = true;
-            state.balance = 50; // Bonus
-            saveState();
-            document.getElementById('authScreen').classList.add('hidden');
-            showToast("Registered! ₹50 Bonus Added");
-            startTimer();
-        }
-
-        function logout() {
-            localStorage.removeItem('tirupatiState');
-            location.reload();
-        }
-
-        // --- NAVIGATION ---
-        function nav(page, el) {
-            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-            document.getElementById('page-' + page).classList.add('active');
-            
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            el.classList.add('active');
-        }
-
-        // --- GAME LOGIC ---
+        // --- LOGIC ---
+        let userBalance = 0.00;
+        let timer = 30;
+        let period = 20241001;
         let interval;
-        function startTimer() {
-            clearInterval(interval);
-            interval = setInterval(() => {
-                state.timer--;
-                if(state.timer < 0) {
-                    state.timer = 30;
-                    state.period++;
-                    processResult();
-                }
-                document.getElementById('timer').innerText = `00:${state.timer < 10 ? '0'+state.timer : state.timer}`;
-                document.getElementById('periodID').innerText = state.period;
+
+        // Check Login on Load
+        window.onload = function() {
+            const savedUser = localStorage.getItem('tirupatiUser');
+            if(savedUser) {
+                // If logged in, skip login screen
+                document.getElementById('authSection').style.display = 'none';
+                document.getElementById('mainApp').classList.remove('hidden');
+                document.getElementById('uName').innerText = savedUser;
+                loadBalance();
+                startGame();
+            }
+        };
+
+        // --- AUTH FUNCTIONS ---
+        function showRegister() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('regForm').classList.remove('hidden');
+        }
+
+        function showLogin() {
+            document.getElementById('regForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+        }
+
+        function doLogin() {
+            const phone = document.getElementById('lPhone').value;
+            const pass = document.getElementById('lPass').value;
+
+            if(!phone || !pass) {
+                showToast("Please enter Number and Password");
+                return;
+            }
+
+            // Visual Loading Effect
+            document.getElementById('lBtnText').classList.add('hidden');
+            document.getElementById('lLoader').classList.remove('hidden');
+
+            setTimeout(() => {
+                localStorage.setItem('tirupatiUser', phone);
+                enterApp(phone);
+            }, 1000); // 1 second fake delay
+        }
+
+        function doRegister() {
+            const phone = document.getElementById('rPhone').value;
+            const pass = document.getElementById('rPass').value;
+
+            if(!phone || !pass) {
+                showToast("Please fill all details");
+                return;
+            }
+
+            document.getElementById('rBtnText').classList.add('hidden');
+            document.getElementById('rLoader').classList.remove('hidden');
+
+            setTimeout(() => {
+                localStorage.setItem('tirupatiUser', phone);
+                localStorage.setItem('tirupatiBal', '50'); // Bonus
+                enterApp(phone);
+                showToast("Registration Success! +₹50 Bonus");
             }, 1000);
         }
 
-        function processResult() {
-            // Fake result generation
+        function enterApp(phone) {
+            document.getElementById('authSection').style.display = 'none'; // Completely remove auth layer
+            document.getElementById('mainApp').classList.remove('hidden');
+            document.getElementById('uName').innerText = phone;
+            loadBalance();
+            startGame();
+        }
+
+        function doLogout() {
+            if(confirm("Do you want to logout?")) {
+                localStorage.removeItem('tirupatiUser');
+                location.reload();
+            }
+        }
+
+        // --- GAME FUNCTIONS ---
+        function loadBalance() {
+            const bal = localStorage.getItem('tirupatiBal');
+            if(bal) userBalance = parseFloat(bal);
+            updateBalUI();
+        }
+
+        function updateBalUI() {
+            document.getElementById('balance').innerText = userBalance.toFixed(2);
+        }
+
+        function deposit() {
+            userBalance += 500;
+            localStorage.setItem('tirupatiBal', userBalance);
+            updateBalUI();
+            showToast("Deposit Successful: +₹500");
+        }
+
+        function startGame() {
+            clearInterval(interval);
+            interval = setInterval(() => {
+                timer--;
+                if(timer < 0) {
+                    timer = 30;
+                    period++;
+                    generateResult();
+                }
+                // Update Timer UI
+                let sec = timer < 10 ? '0'+timer : timer;
+                document.getElementById('timer').innerText = `00:${sec}`;
+                document.getElementById('periodID').innerText = period;
+            }, 1000);
+        }
+
+        function placeBet(choice) {
+            if(userBalance < 10) {
+                showToast("Insufficient Balance! Please Deposit.");
+                return;
+            }
+            userBalance -= 10;
+            localStorage.setItem('tirupatiBal', userBalance);
+            updateBalUI();
+            showToast(`Join ${choice} Successful (-₹10)`);
+        }
+
+        function generateResult() {
+            // Fake result logic
             const colors = ['Green', 'Red', 'Violet'];
-            const res = colors[Math.floor(Math.random() * colors.length)];
-            const num = Math.floor(Math.random() * 10);
+            const rColor = colors[Math.floor(Math.random() * colors.length)];
+            const rNum = Math.floor(Math.random() * 10);
             
-            const historyItem = document.createElement('div');
-            historyItem.innerHTML = `
-                <div style="background:white; padding:10px; border-radius:5px; display:flex; justify-content:space-between; font-size:12px; border-left:4px solid ${res === 'Red' ? '#F44336' : (res==='Green'?'#4CAF50':'#9C27B0')};">
-                    <span>${state.period - 1}</span>
-                    <span style="font-weight:bold;">${num} ${res}</span>
-                </div>
-            `;
+            const div = document.createElement('div');
+            div.style.cssText = "display:flex; justify-content:space-between; padding:10px; background:#f9f9f9; border-bottom:1px solid #ddd; margin-bottom:5px;";
+            div.innerHTML = `<span>${period-1}</span> <span style="font-weight:bold; color:${getColor(rColor)}">${rNum} ${rColor}</span>`;
+            
             const list = document.getElementById('historyList');
-            list.prepend(historyItem);
-            if(lis
+            list.prepend(div);
+            if(list.children.length > 5) list.lastChild.remove();
+        }
+
+        function getColor(name) {
+            if(name==='Green') return '#4CAF50';
+            if(name==='Red') return '#F44336';
+            return '#9C27B0';
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+</html>
