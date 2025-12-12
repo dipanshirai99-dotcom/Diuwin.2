@@ -2,412 +2,449 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Tirupati Club Final</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tirupati Club</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
             --primary: #FF9800;
-            --secondary: #FF5722;
-            --bg-gray: #f5f5f5;
+            --primary-grad: linear-gradient(to right, #ff9a00, #ff5320);
             --green: #4CAF50;
             --violet: #9C27B0;
             --red: #F44336;
+            --bg-body: #f7f8ff;
+            --text-dark: #333;
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            user-select: none;
+        }
+
         body {
-            font-family: 'Roboto', sans-serif; background: #f5f5f5; margin: 0;
-            display: flex; justify-content: center; min-height: 100vh;
+            background: var(--bg-body);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
         }
 
+        /* Mobile Container */
         .app-container {
-            width: 100%; max-width: 480px; background: #fff;
-            min-height: 100vh; position: relative; padding-bottom: 70px;
+            width: 100%;
+            max-width: 480px;
+            background: #fff;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 80px;
+            overflow-x: hidden;
         }
 
-        /* --- LOGIN / REGISTER PAGE --- */
-        #authSection {
+        /* --- LOGIN SCREEN --- */
+        #auth-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #ff9a00, #ff5320);
-            z-index: 9999; display: flex; flex-direction: column; 
-            justify-content: center; padding: 30px;
-            transition: transform 0.4s ease;
-        }
-        
-        .auth-card {
-            background: white; padding: 30px; border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        
-        .auth-header { text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 25px; color: #333; }
-        
-        .inp-box { margin-bottom: 15px; }
-        .inp-label { font-size: 13px; color: #666; margin-bottom: 5px; display: block; }
-        .inp-field {
-            width: 100%; padding: 12px; border: 1px solid #ddd; 
-            border-radius: 8px; font-size: 16px;
-        }
-        .inp-field:focus { border-color: var(--primary); }
-
-        .btn-auth {
-            width: 100%; padding: 14px; border: none; border-radius: 25px;
-            background: linear-gradient(to right, #ff9a00, #ff5320);
-            color: white; font-size: 16px; font-weight: bold; cursor: pointer;
-            margin-top: 10px; box-shadow: 0 5px 10px rgba(255,87,34,0.3);
-            display: flex; justify-content: center; align-items: center; gap: 10px;
-        }
-        .btn-auth:active { transform: scale(0.98); }
-        
-        .toggle-link {
-            text-align: center; margin-top: 20px; font-size: 14px; 
-            color: var(--secondary); cursor: pointer;
+            background: var(--primary-grad); /* Orange Gradient from Login Screenshot */
+            z-index: 9999;
+            display: flex; flex-direction: column; 
+            padding: 30px;
+            transition: transform 0.3s ease;
         }
 
-        /* --- MAIN APP --- */
-        .header {
-            background: linear-gradient(to right, #ff9a00, #ff5320);
-            padding: 15px 20px 40px; color: white;
-            border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;
+        .auth-header {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 50px;
+            margin-bottom: 10px;
         }
-        .top-bar { display: flex; justify-content: space-between; align-items: center; font-size: 18px; }
 
-        .wallet-box {
-            background: white; margin: -30px 15px 10px; padding: 20px;
-            border-radius: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        .auth-sub { color: rgba(255,255,255,0.9); font-size: 14px; margin-bottom: 40px; }
+
+        .auth-form {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .input-group { margin-bottom: 20px; }
+        .input-label { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; color: #555; font-size: 14px; font-weight: 500; }
+        .input-field {
+            width: 100%; padding: 15px;
+            border: 1px solid #eee; border-radius: 8px;
+            font-size: 16px; background: #f8f8f8;
+        }
+
+        .btn-main {
+            width: 100%; padding: 15px;
+            background: var(--primary-grad);
+            border: none; border-radius: 30px;
+            color: white; font-size: 16px; font-weight: bold;
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
+            margin-top: 10px;
+        }
+
+        /* --- MAIN APP HEADER --- */
+        .header-section {
+            background: var(--primary-grad);
+            padding: 15px 20px 50px;
+            color: white;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+        .nav-top { display: flex; justify-content: space-between; align-items: center; font-size: 18px; font-weight: 700; }
+        
+        /* --- WALLET CARD --- */
+        .wallet-card {
+            background: white;
+            margin: -40px 15px 15px;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            text-align: center;
             position: relative; z-index: 10;
         }
-
-        .bal-display { font-size: 30px; font-weight: bold; margin: 10px 0; color: #333; }
-
-        .action-row { display: flex; gap: 10px; margin-top: 15px; }
-        .act-btn {
-            flex: 1; padding: 10px; border: none; border-radius: 20px; 
-            color: white; font-weight: 500; font-size: 14px;
+        .balance-title { font-size: 12px; color: #888; display: flex; justify-content: center; align-items: center; gap: 5px; }
+        .balance-val { font-size: 32px; font-weight: 800; margin: 5px 0 15px; color: #333; }
+        .wallet-btns { display: flex; gap: 15px; }
+        .w-btn {
+            flex: 1; padding: 12px; border-radius: 30px; border: none;
+            color: white; font-weight: 600; font-size: 15px;
         }
 
-        /* Game Section */
-        .game-frame {
-            background: linear-gradient(to right, #ffa726, #fb8c00);
-            margin: 15px; border-radius: 15px; padding: 15px; color: white;
-            display: flex; justify-content: space-between; align-items: center;
+        /* --- GAME TABS --- */
+        .game-tabs { display: flex; justify-content: space-between; padding: 0 15px; margin-bottom: 20px; }
+        .tab-item { text-align: center; opacity: 0.6; transition: 0.2s; }
+        .tab-item.active { opacity: 1; transform: scale(1.05); }
+        .tab-icon {
+            width: 50px; height: 50px; background: #f0f0f0; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 5px;
         }
-        .timer-big { font-size: 26px; font-weight: bold; letter-spacing: 2px; }
+        .tab-item.active .tab-icon { background: var(--primary-grad); color: white; box-shadow: 0 4px 10px rgba(255,87,34,0.3); }
 
-        .bet-area { padding: 0 15px; }
-        .color-group { display: flex; gap: 10px; margin-bottom: 20px; }
-        .c-btn {
-            flex: 1; padding: 12px; border: none; border-radius: 8px; 
-            color: white; font-size: 16px; font-weight: 500;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        /* --- TIMER AREA --- */
+        .game-status-box {
+            background: var(--primary-grad); /* Matches screenshot timer bg */
+            margin: 0 15px 20px; padding: 15px; border-radius: 15px;
+            color: white; display: flex; justify-content: space-between; align-items: center;
+            position: relative; overflow: hidden;
         }
+        .game-status-box::before {
+            content: ''; position: absolute; top: -30px; left: -30px; width: 100px; height: 100px;
+            background: rgba(255,255,255,0.2); border-radius: 50%;
+        }
+        .timer-digits {
+            font-size: 28px; font-weight: 800; letter-spacing: 2px;
+            display: flex; gap: 5px;
+        }
+        .time-block { background: rgba(255,255,255,0.2); padding: 0 5px; border-radius: 4px; }
 
+        /* --- BETTING CONTROLS --- */
+        .bet-pad { padding: 0 15px; }
+        .color-btns-row { display: flex; gap: 10px; margin-bottom: 20px; }
+        .btn-color {
+            flex: 1; padding: 15px; border: none; border-radius: 8px;
+            color: white; font-size: 16px; font-weight: 600;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+        }
+        .bg-green { background: var(--green); }
+        .bg-violet { background: var(--violet); }
+        .bg-red { background: var(--red); }
+
+        /* Numbers Grid - Matches Screenshot */
         .num-grid {
-            display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 20px;
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+            padding: 15px; background: #f5f5f5; border-radius: 15px; margin-bottom: 20px;
         }
-        .n-btn {
-            aspect-ratio: 1; border-radius: 50%; border: none; color: white;
-            font-size: 18px; font-weight: bold;
+        .ball {
+            aspect-ratio: 1; border-radius: 50%; border: none;
+            color: white; font-size: 18px; font-weight: 800;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
         }
+        
+        /* Specific Ball Colors */
+        .b-green { background: var(--green); }
+        .b-red { background: var(--red); }
+        .b-violet { background: var(--violet); }
+        /* Dual Colors for 0 and 5 */
+        .b-0 { background: linear-gradient(135deg, var(--red) 50%, var(--violet) 50%); }
+        .b-5 { background: linear-gradient(135deg, var(--green) 50%, var(--violet) 50%); }
+
+        .action-row { display: flex; gap: 10px; margin-bottom: 20px; }
+        .btn-big-small {
+            flex: 1; padding: 12px; border-radius: 30px; border: none;
+            color: white; font-weight: 700; font-size: 16px;
+        }
+
+        /* --- HISTORY TABLE --- */
+        .history-box { padding: 0 15px; }
+        .htable {
+            width: 100%; background: white; border-radius: 10px;
+            border-collapse: collapse; text-align: center; overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .htable th { background: #FF9800; color: white; padding: 12px; font-weight: 500; font-size: 14px; }
+        .htable td { padding: 12px; border-bottom: 1px solid #eee; color: #555; font-size: 13px; font-weight: 600; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin: 0 2px; }
 
         /* --- BOTTOM NAV --- */
         .navbar {
             position: fixed; bottom: 0; width: 100%; max-width: 480px;
-            background: white; display: flex; justify-content: space-around;
-            padding: 10px 0; border-top: 1px solid #eee; z-index: 100;
+            background: white; border-top: 1px solid #eee;
+            display: flex; justify-content: space-around; padding: 10px 0; z-index: 100;
         }
-        .nav-icon { text-align: center; color: #999; font-size: 12px; flex: 1; }
+        .nav-icon { text-align: center; color: #aaa; font-size: 11px; flex: 1; }
         .nav-icon.active { color: var(--primary); }
         .nav-icon i { font-size: 20px; display: block; margin-bottom: 4px; }
 
-        /* Helpers */
-        .hidden { display: none !important; }
-        .loader {
-            border: 3px solid #f3f3f3; border-top: 3px solid #fff;
-            border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;
+        /* --- POPUP MODAL --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 2000;
+            display: none; justify-content: center; align-items: flex-end;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .modal-sheet {
+            background: white; width: 100%; max-width: 480px;
+            border-top-left-radius: 20px; border-top-right-radius: 20px;
+            padding: 20px; animation: slideUp 0.3s;
+        }
+        @keyframes slideUp { from {transform: translateY(100%);} to {transform: translateY(0);} }
 
-        /* Toast */
+        .qty-box { display: flex; align-items: center; justify-content: space-between; margin: 15px 0; }
+        .btn-qty { width: 35px; height: 35px; background: #f0f0f0; border: none; font-weight: bold; border-radius: 5px; }
+
+        /* Utilities */
+        .hidden { display: none !important; }
         .toast {
-            position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+            position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
             background: rgba(0,0,0,0.8); color: white; padding: 10px 20px;
-            border-radius: 20px; opacity: 0; pointer-events: none; transition: 0.3s; z-index: 2000;
+            border-radius: 20px; opacity: 0; transition: 0.3s; pointer-events: none; z-index: 3000;
         }
         .toast.show { opacity: 1; }
-
     </style>
 </head>
 <body>
 
-    <div class="app-container">
+<div class="app-container">
+
+    <div id="auth-screen">
+        <div class="auth-header">Log in</div>
+        <div class="auth-sub">Please log in with your phone number or email</div>
         
-        <div id="authSection">
-            <div id="loginForm" class="auth-card">
-                <div class="auth-header">Login</div>
-                <div class="inp-box">
-                    <label class="inp-label"><i class="fas fa-mobile-alt"></i> Phone Number</label>
-                    <input type="number" id="lPhone" class="inp-field" placeholder="Enter Mobile Number">
-                </div>
-                <div class="inp-box">
-                    <label class="inp-label"><i class="fas fa-lock"></i> Password</label>
-                    <input type="password" id="lPass" class="inp-field" placeholder="Enter Password">
-                </div>
-                <button class="btn-auth" onclick="doLogin()">
-                    <span id="lBtnText">Log In</span>
-                    <div id="lLoader" class="loader hidden"></div>
-                </button>
-                <div class="toggle-link" onclick="showRegister()">Create an account</div>
+        <div class="auth-form">
+            <div class="input-group">
+                <div class="input-label"><i class="fas fa-mobile-alt"></i> Phone number</div>
+                <input type="number" id="login-phone" class="input-field" placeholder="Please enter phone number">
             </div>
-
-            <div id="regForm" class="auth-card hidden">
-                <div class="auth-header">Register</div>
-                <div class="inp-box">
-                    <label class="inp-label">Phone Number</label>
-                    <input type="number" id="rPhone" class="inp-field" placeholder="Enter Mobile Number">
-                </div>
-                <div class="inp-box">
-                    <label class="inp-label">Set Password</label>
-                    <input type="password" id="rPass" class="inp-field" placeholder="Create Password">
-                </div>
-                <div class="inp-box">
-                    <label class="inp-label">Invite Code</label>
-                    <input type="text" class="inp-field" placeholder="Optional">
-                </div>
-                <button class="btn-auth" onclick="doRegister()">
-                    <span id="rBtnText">Register</span>
-                    <div id="rLoader" class="loader hidden"></div>
-                </button>
-                <div class="toggle-link" onclick="showLogin()">Already have an account? Login</div>
+            <div class="input-group">
+                <div class="input-label"><i class="fas fa-lock"></i> Password</div>
+                <input type="password" id="login-pass" class="input-field" placeholder="Password">
             </div>
-        </div>
-
-        <div id="mainApp" class="hidden">
-            
-            <div class="header">
-                <div class="top-bar">
-                    <div style="font-weight:700;">TIRUPATI CLUB</div>
-                    <div><i class="fas fa-download"></i></div>
-                </div>
-                <div style="margin-top:10px; font-size:14px;">User: <span id="uName">Guest</span></div>
-            </div>
-
-            <div class="wallet-box">
-                <div style="color:#777; font-size:12px;">Available Balance</div>
-                <div class="bal-display">₹ <span id="balance">0.00</span></div>
-                <div class="action-row">
-                    <button class="act-btn" style="background:#F44336;" onclick="alert('Withdraw disabled in demo')">Withdraw</button>
-                    <button class="act-btn" style="background:#4CAF50;" onclick="deposit()">Deposit</button>
-                </div>
-            </div>
-
-            <div class="game-frame">
-                <div>
-                    <div style="font-size:12px; margin-bottom:5px;"><i class="fas fa-trophy"></i> Win Go 30Sec</div>
-                    <div id="periodID" style="font-size:16px;">20241001</div>
-                </div>
-                <div style="text-align:right;">
-                    <div style="font-size:12px;">Time Remaining</div>
-                    <div class="timer-big" id="timer">00:30</div>
-                </div>
-            </div>
-
-            <div class="bet-area">
-                <div class="color-group">
-                    <button class="c-btn" style="background:#4CAF50;" onclick="placeBet('Green')">Green</button>
-                    <button class="c-btn" style="background:#9C27B0;" onclick="placeBet('Violet')">Violet</button>
-                    <button class="c-btn" style="background:#F44336;" onclick="placeBet('Red')">Red</button>
-                </div>
-                
-                <div class="num-grid">
-                    <button class="n-btn" style="background:linear-gradient(135deg,#F44336,#9C27B0)" onclick="placeBet('0')">0</button>
-                    <button class="n-btn" style="background:#4CAF50" onclick="placeBet('1')">1</button>
-                    <button class="n-btn" style="background:#F44336" onclick="placeBet('2')">2</button>
-                    <button class="n-btn" style="background:#4CAF50" onclick="placeBet('3')">3</button>
-                    <button class="n-btn" style="background:#F44336" onclick="placeBet('4')">4</button>
-                    <button class="n-btn" style="background:linear-gradient(135deg,#4CAF50,#9C27B0)" onclick="placeBet('5')">5</button>
-                    <button class="n-btn" style="background:#F44336" onclick="placeBet('6')">6</button>
-                    <button class="n-btn" style="background:#4CAF50" onclick="placeBet('7')">7</button>
-                    <button class="n-btn" style="background:#F44336" onclick="placeBet('8')">8</button>
-                    <button class="n-btn" style="background:#4CAF50" onclick="placeBet('9')">9</button>
-                </div>
-            </div>
-
-            <div style="padding:15px; margin-bottom:60px;">
-                <h4 style="color:#555; border-bottom:1px solid #eee; padding-bottom:10px;">Game Record</h4>
-                <div id="historyList"></div>
-            </div>
-
-            <div class="navbar">
-                <div class="nav-icon active"><i class="fas fa-home"></i> Home</div>
-                <div class="nav-icon"><i class="fas fa-chart-line"></i> Activity</div>
-                <div class="nav-icon"><i class="fas fa-wallet"></i> Wallet</div>
-                <div class="nav-icon" onclick="doLogout()"><i class="fas fa-user"></i> Account</div>
-            </div>
+            <button class="btn-main" onclick="performLogin()">Log in</button>
+            <button class="btn-main" style="background:white; color:var(--primary); border:1px solid var(--primary); margin-top:15px; box-shadow:none;">Register</button>
         </div>
     </div>
 
-    <div id="toast" class="toast">Message</div>
+    <div id="main-app" class="hidden">
+        
+        <div class="header-section">
+            <div class="nav-top">
+                <span>TIRUPATI <span style="font-size:12px;">CLUB</span></span>
+                <div><i class="fas fa-headset"></i> <i class="fas fa-download" style="margin-left:10px;"></i></div>
+            </div>
+        </div>
 
-    <script>
-        // --- LOGIC ---
-        let userBalance = 0.00;
-        let timer = 30;
-        let period = 20241001;
-        let interval;
+        <div class="wallet-card">
+            <div class="balance-title"><i class="fas fa-wallet" style="color:var(--primary)"></i> Wallet balance <i class="fas fa-sync-alt"></i></div>
+            <div class="balance-val">₹ <span id="user-balance">0.00</span></div>
+            <div class="wallet-btns">
+                <button class="w-btn" style="background:#F44336; box-shadow:0 4px 10px rgba(244,67,54,0.3);" onclick="alert('Withdraw feature disabled in demo')">Withdraw</button>
+                <button class="w-btn" style="background:#4CAF50; box-shadow:0 4px 10px rgba(76,175,80,0.3);" onclick="deposit()">Deposit</button>
+            </div>
+        </div>
 
-        // Check Login on Load
-        window.onload = function() {
-            const savedUser = localStorage.getItem('tirupatiUser');
-            if(savedUser) {
-                // If logged in, skip login screen
-                document.getElementById('authSection').style.display = 'none';
-                document.getElementById('mainApp').classList.remove('hidden');
-                document.getElementById('uName').innerText = savedUser;
-                loadBalance();
-                startGame();
-            }
-        };
+        <div class="game-tabs">
+            <div class="tab-item active">
+                <div class="tab-icon"><i class="fas fa-stopwatch"></i></div>
+                <div style="font-size:12px; color:#555;">Win Go<br>30Sec</div>
+            </div>
+            <div class="tab-item">
+                <div class="tab-icon"><i class="fas fa-stopwatch"></i></div>
+                <div style="font-size:12px; color:#555;">Win Go<br>1Min</div>
+            </div>
+            <div class="tab-item">
+                <div class="tab-icon"><i class="fas fa-stopwatch"></i></div>
+                <div style="font-size:12px; color:#555;">Win Go<br>3Min</div>
+            </div>
+            <div class="tab-item">
+                <div class="tab-icon"><i class="fas fa-stopwatch"></i></div>
+                <div style="font-size:12px; color:#555;">Win Go<br>5Min</div>
+            </div>
+        </div>
 
-        // --- AUTH FUNCTIONS ---
-        function showRegister() {
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('regForm').classList.remove('hidden');
-        }
+        <div class="game-status-box">
+            <div>
+                <div style="font-size:12px; margin-bottom:5px; opacity:0.9;"><i class="fas fa-book"></i> How to play</div>
+                <div style="font-size:18px; font-weight:700;">Win Go 30Sec</div>
+                <div id="period-id" style="font-size:14px; opacity:0.8; margin-top:5px;">202512120001</div>
+            </div>
+            <div style="text-align:right;">
+                <div style="font-size:12px; margin-bottom:5px; opacity:0.9;">Time remaining</div>
+                <div class="timer-digits" id="timer">
+                    <span class="time-block">0</span><span class="time-block">0</span>:<span class="time-block">3</span><span class="time-block">0</span>
+                </div>
+            </div>
+        </div>
 
-        function showLogin() {
-            document.getElementById('regForm').classList.add('hidden');
-            document.getElementById('loginForm').classList.remove('hidden');
-        }
+        <div class="bet-pad">
+            <div class="color-btns-row">
+                <button class="btn-color bg-green" onclick="openModal('Green', '#4CAF50')">Green</button>
+                <button class="btn-color bg-violet" onclick="openModal('Violet', '#9C27B0')">Violet</button>
+                <button class="btn-color bg-red" onclick="openModal('Red', '#F44336')">Red</button>
+            </div>
 
-        function doLogin() {
-            const phone = document.getElementById('lPhone').value;
-            const pass = document.getElementById('lPass').value;
+            <div class="num-grid">
+                <button class="ball b-0" onclick="openModal('0', 'purple')">0</button>
+                <button class="ball b-green" onclick="openModal('1', '#4CAF50')">1</button>
+                <button class="ball b-red" onclick="openModal('2', '#F44336')">2</button>
+                <button class="ball b-green" onclick="openModal('3', '#4CAF50')">3</button>
+                <button class="ball b-red" onclick="openModal('4', '#F44336')">4</button>
+                <button class="ball b-5" onclick="openModal('5', 'purple')">5</button>
+                <button class="ball b-red" onclick="openModal('6', '#F44336')">6</button>
+                <button class="ball b-green" onclick="openModal('7', '#4CAF50')">7</button>
+                <button class="ball b-red" onclick="openModal('8', '#F44336')">8</button>
+                <button class="ball b-green" onclick="openModal('9', '#4CAF50')">9</button>
+            </div>
 
-            if(!phone || !pass) {
-                showToast("Please enter Number and Password");
-                return;
-            }
+            <div class="action-row">
+                <button class="btn-big-small" style="background:#FFC107" onclick="openModal('Big', '#FFC107')">Big</button>
+                <button class="btn-big-small" style="background:#42A5F5" onclick="openModal('Small', '#42A5F5')">Small</button>
+            </div>
+        </div>
 
-            // Visual Loading Effect
-            document.getElementById('lBtnText').classList.add('hidden');
-            document.getElementById('lLoader').classList.remove('hidden');
-
-            setTimeout(() => {
-                localStorage.setItem('tirupatiUser', phone);
-                enterApp(phone);
-            }, 1000); // 1 second fake delay
-        }
-
-        function doRegister() {
-            const phone = document.getElementById('rPhone').value;
-            const pass = document.getElementById('rPass').value;
-
-            if(!phone || !pass) {
-                showToast("Please fill all details");
-                return;
-            }
-
-            document.getElementById('rBtnText').classList.add('hidden');
-            document.getElementById('rLoader').classList.remove('hidden');
-
-            setTimeout(() => {
-                localStorage.setItem('tirupatiUser', phone);
-                localStorage.setItem('tirupatiBal', '50'); // Bonus
-                enterApp(phone);
-                showToast("Registration Success! +₹50 Bonus");
-            }, 1000);
-        }
-
-        function enterApp(phone) {
-            document.getElementById('authSection').style.display = 'none'; // Completely remove auth layer
-            document.getElementById('mainApp').classList.remove('hidden');
-            document.getElementById('uName').innerText = phone;
-            loadBalance();
-            startGame();
-        }
-
-        function doLogout() {
-            if(confirm("Do you want to logout?")) {
-                localStorage.removeItem('tirupatiUser');
-                location.reload();
-            }
-        }
-
-        // --- GAME FUNCTIONS ---
-        function loadBalance() {
-            const bal = localStorage.getItem('tirupatiBal');
-            if(bal) userBalance = parseFloat(bal);
-            updateBalUI();
-        }
-
-        function updateBalUI() {
-            document.getElementById('balance').innerText = userBalance.toFixed(2);
-        }
-
-        function deposit() {
-            userBalance += 500;
-            localStorage.setItem('tirupatiBal', userBalance);
-            updateBalUI();
-            showToast("Deposit Successful: +₹500");
-        }
-
-        function startGame() {
-            clearInterval(interval);
-            interval = setInterval(() => {
-                timer--;
-                if(timer < 0) {
-                    timer = 30;
-                    period++;
-                    generateResult();
-                }
-                // Update Timer UI
-                let sec = timer < 10 ? '0'+timer : timer;
-                document.getElementById('timer').innerText = `00:${sec}`;
-                document.getElementById('periodID').innerText = period;
-            }, 1000);
-        }
-
-        function placeBet(choice) {
-            if(userBalance < 10) {
-                showToast("Insufficient Balance! Please Deposit.");
-                return;
-            }
-            userBalance -= 10;
-            localStorage.setItem('tirupatiBal', userBalance);
-            updateBalUI();
-            showToast(`Join ${choice} Successful (-₹10)`);
-        }
-
-        function generateResult() {
-            // Fake result logic
-            const colors = ['Green', 'Red', 'Violet'];
-            const rColor = colors[Math.floor(Math.random() * colors.length)];
-            const rNum = Math.floor(Math.random() * 10);
+        <div class="history-box">
+            <div style="display:flex; gap:10px; margin-bottom:15px;">
+                <button style="background:linear-gradient(to right, #ff9800, #ff5722); color:white; border:none; padding:8px 15px; border-radius:5px; font-weight:bold;">Game history</button>
+                <button style="background:#eee; color:#666; border:none; padding:8px 15px; border-radius:5px;">Chart</button>
+            </div>
             
-            const div = document.createElement('div');
-            div.style.cssText = "display:flex; justify-content:space-between; padding:10px; background:#f9f9f9; border-bottom:1px solid #ddd; margin-bottom:5px;";
-            div.innerHTML = `<span>${period-1}</span> <span style="font-weight:bold; color:${getColor(rColor)}">${rNum} ${rColor}</span>`;
+            <table class="htable">
+                <thead><tr><th>Period</th><th>Number</th><th>Big Small</th><th>Color</th></tr></thead>
+                <tbody id="history-list">
+                    </tbody>
+            </table>
+        </div>
+
+        <div class="navbar">
+            <div class="nav-icon active"><i class="fas fa-home"></i> Home</div>
+            <div class="nav-icon"><i class="fas fa-chart-line"></i> Activity</div>
+            <div class="nav-icon"><i class="fas fa-wallet"></i> Wallet</div>
+            <div class="nav-icon"><i class="fas fa-user"></i> Account</div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="bet-modal">
+    <div class="modal-sheet">
+        <div style="text-align:center; font-weight:bold; font-size:18px; margin-bottom:10px; color:white; background:var(--primary); padding:10px; border-radius:10px; margin:-20px -20px 20px -20px;">
+            Win Go 30Sec
+        </div>
+        <div>Select <span id="sel-target" style="font-weight:bold;">Green</span></div>
+        <div class="qty-box">
+            <span>Balance: ₹ <span id="modal-bal">0.00</span></span>
+        </div>
+        <div class="qty-box">
+            <button class="btn-qty" onclick="changeQty(-1)">-</button>
+            <span id="qty-disp" style="font-weight:bold; font-size:18px;">1</span>
+            <button class="btn-qty" onclick="changeQty(1)">+</button>
+        </div>
+        <div style="display:flex; gap:5px; margin-bottom:20px;">
+            <button class="btn-qty" style="width:auto; padding:0 10px;" onclick="setMult(1)">X1</button>
+            <button class="btn-qty" style="width:auto; padding:0 10px;" onclick="setMult(5)">X5</button>
+            <button class="btn-qty" style="width:auto; padding:0 10px;" onclick="setMult(10)">X10</button>
+        </div>
+        <button class="btn-main" onclick="confirmBet()">Total amount ₹<span id="total-price">1</span></button>
+    </div>
+</div>
+
+<div id="toast" class="toast">Login Successful</div>
+
+<script>
+    // --- STATE ---
+    let balance = 0.00;
+    let timer = 30;
+    let period = 202512120001;
+    let qty = 1;
+    let mult = 1;
+    let currentSelection = '';
+
+    // --- LOGIN LOGIC ---
+    function performLogin() {
+        // Simple bypass logic - Just checks if fields are touched
+        const ph = document.getElementById('login-phone').value;
+        const pass = document.getElementById('login-pass').value;
+        
+        // Show loading simulation then switch
+        document.getElementById('auth-screen').style.transform = "translateY(-100%)";
+        setTimeout(() => {
+            document.getElementById('auth-screen').style.display = "none";
+            document.getElementById('main-app').classList.remove('hidden');
+            showToast("Login Successful");
+            startTimer();
+            initHistory();
+        }, 500);
+    }
+
+    // --- GAME LOGIC ---
+    function startTimer() {
+        setInterval(() => {
+            timer--;
+            if (timer < 0) {
+                timer = 30;
+                period++;
+                document.getElementById('period-id').innerText = period;
+                addHistory(); // Generate new result
+            }
             
-            const list = document.getElementById('historyList');
-            list.prepend(div);
-            if(list.children.length > 5) list.lastChild.remove();
-        }
+            // Format 00:XX
+            let sec = timer < 10 ? '0' + timer : timer;
+            let secStr = sec.toString();
+            
+            document.getElementById('timer').innerHTML = `
+                <span class="time-block">0</span><span class="time-block">0</span>:
+                <span class="time-block">${secStr[0]}</span><span class="time-block">${secStr[1]}</span>
+            `;
+        }, 1000);
+    }
 
-        function getColor(name) {
-            if(name==='Green') return '#4CAF50';
-            if(name==='Red') return '#F44336';
-            return '#9C27B0';
-        }
+    // --- HISTORY LOGIC ---
+    function initHistory() {
+        // Add some dummy rows initially
+        for(let i=0; i<5; i++) addHistory(true);
+    }
 
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.innerText = msg;
-            t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 3000);
-        }
-    </script>
-</body>
-</html>
+    function addHistory(isInit) {
+        // Logic: 0-9 Random
+        let num = Math.floor(Math.random() * 10);
+        let bs = num >= 5 ? 'Big' : 'Small';
+        let color = 'Red';
+        if ([1,3,7,9].includes(num)) color = 'Green';
+        else if ([0,5].includes(num)) color = 'Violet';
+        else color = 'Red';
+
+        let colorDot = '';
+        if (num === 0) colorDot = '<span class="dot b-red"></span><span class="dot b-violet"></span>';
+        else if (num === 5) colorDot = '<span class="dot b-green"></span><span class="dot b-violet"></span>';
+        else if (color === 'Green') colorDot = '<span class="dot b-green"></span>';
+        else colorDot = '<span class="dot b-red"></span>';
+
+        let colorText = color === 'Green' ? '#4CAF50' : (color === 'Red' ? '#F44336' : '#9C27B0');
+
+        let row = `
+         
