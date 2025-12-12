@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Tirupati Club Clone</title>
+    <title>Tirupati Club Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -14,642 +14,420 @@
             --green: #4CAF50;
             --violet: #9C27B0;
             --red: #F44336;
-            --blue: #2196F3;
-            --yellow: #FFC107;
             --bg-gray: #f5f5f5;
             --text-dark: #333;
-            --white: #ffffff;
         }
 
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
             font-family: 'Roboto', sans-serif;
             background-color: var(--bg-gray);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
+            margin: 0; padding: 0;
+            display: flex; justify-content: center;
         }
 
-        /* Mobile Container Simulation */
+        /* Mobile Container */
         .app-container {
-            width: 100%;
-            max-width: 480px; /* Locks width to look like mobile */
-            background: #fff;
-            min-height: 100vh;
-            padding-bottom: 20px;
-            position: relative;
+            width: 100%; max-width: 480px;
+            background: #fff; min-height: 100vh;
+            padding-bottom: 80px; position: relative;
         }
 
-        /* --- HEADER SECTION --- */
+        /* --- HEADER --- */
         .header {
             background: linear-gradient(to right, #ff9a00, #ff5320);
-            padding: 15px;
-            color: white;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
+            padding: 15px; color: white;
+            border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;
             padding-bottom: 30px;
         }
-
-        .top-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-
-        .logo-text {
-            font-weight: bold;
-            font-size: 20px;
-        }
-
+        .top-nav { display: flex; justify-content: space-between; align-items: center; font-size: 18px; margin-bottom: 20px; }
+        .logo-text { font-weight: bold; font-size: 20px; text-align: center; }
+        
         .wallet-card {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            color: #333;
+            background: white; border-radius: 15px; padding: 20px;
+            text-align: center; color: #333;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-top: 10px;
         }
-
-        .balance-label {
-            color: #777;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        .balance-amount {
-            font-size: 32px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        .wallet-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
+        .balance-amount { font-size: 32px; font-weight: bold; margin: 10px 0; }
+        .wallet-buttons { display: flex; gap: 15px; margin-top: 15px; }
         .action-btn {
-            flex: 1;
-            border: none;
-            padding: 12px;
-            border-radius: 25px;
-            color: white;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
+            flex: 1; border: none; padding: 12px; border-radius: 25px;
+            color: white; font-size: 16px; font-weight: 500; cursor: pointer;
         }
+        .btn-withdraw { background: linear-gradient(to right, #ff8a80, #e53935); }
+        .btn-deposit { background: linear-gradient(to right, #66bb6a, #43a047); }
 
-        .btn-withdraw {
-            background: linear-gradient(to right, #ff8a80, #e53935);
-            box-shadow: 0 4px 10px rgba(229, 57, 53, 0.3);
-        }
-
-        .btn-deposit {
-            background: linear-gradient(to right, #66bb6a, #43a047);
-            box-shadow: 0 4px 10px rgba(67, 160, 71, 0.3);
-        }
-
-        /* --- NOTIFICATION BAR --- */
+        /* --- NOTICE BAR --- */
         .notice-bar {
-            background: white;
-            padding: 10px 15px;
-            border-radius: 20px;
-            margin: -20px 15px 15px; /* Negative margin to overlap header */
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            z-index: 2;
+            background: white; padding: 10px 15px; border-radius: 20px;
+            margin: -20px 15px 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 2;
         }
 
-        .notice-detail-btn {
-            background: #ff9800;
-            color: white;
-            border: none;
-            padding: 5px 15px;
-            border-radius: 15px;
-            font-size: 12px;
-        }
-
-        /* --- GAME TABS --- */
-        .game-tabs {
-            display: flex;
-            justify-content: space-between;
-            padding: 0 10px;
-            margin-bottom: 20px;
-        }
-
-        .tab-item {
-            text-align: center;
-            opacity: 0.6;
-            transition: 0.3s;
-        }
-
-        .tab-item.active {
-            opacity: 1;
-        }
-
+        /* --- TABS --- */
+        .game-tabs { display: flex; justify-content: space-between; padding: 0 10px; margin-bottom: 20px; }
+        .tab-item { text-align: center; opacity: 0.6; transition: 0.3s; cursor: pointer; }
+        .tab-item.active { opacity: 1; transform: scale(1.05); }
         .tab-icon {
-            width: 50px;
-            height: 50px;
-            background: #eee; /* Placeholder for the clock images */
-            border-radius: 50%;
-            margin: 0 auto 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 50px; height: 50px; background: #eee; border-radius: 50%;
+            margin: 0 auto 5px; display: flex; align-items: center; justify-content: center;
         }
-        
-        /* Simulating the gradient clock icon */
-        .tab-item.active .tab-icon {
-            background: linear-gradient(135deg, #ff9800, #ff5722);
-            color: white;
-        }
-        
-        .tab-text {
-            font-size: 12px;
-            color: #555;
-        }
+        .tab-item.active .tab-icon { background: linear-gradient(135deg, #ff9800, #ff5722); color: white; }
+        .tab-text { font-size: 12px; color: #555; }
 
         /* --- TIMER AREA --- */
         .game-area {
             background: linear-gradient(to right, #ffa726, #fb8c00);
-            margin: 0 15px;
-            border-radius: 15px;
-            padding: 15px;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
+            margin: 0 15px; border-radius: 15px; padding: 15px;
+            color: white; display: flex; justify-content: space-between; align-items: center;
+            position: relative; overflow: hidden;
         }
-        
-        /* Decorative background circles */
         .game-area::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            left: -20px;
-            width: 100px;
-            height: 100px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
+            content: ''; position: absolute; top: -20px; left: -20px;
+            width: 100px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 50%;
         }
-
-        .how-to-play {
-            border: 1px solid rgba(255,255,255,0.5);
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            margin-bottom: 10px;
-        }
-
-        .game-info-left {
-            z-index: 1;
-        }
-
-        .balls-preview {
-            display: flex;
-            gap: 5px;
-        }
-
+        .balls-preview { display: flex; gap: 5px; margin-top: 5px; }
         .mini-ball {
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            background: white; /* Placeholder */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: bold;
-            color: white;
+            width: 25px; height: 25px; border-radius: 50%; background: white;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: bold; color: white;
         }
+        .countdown-display { font-size: 28px; font-weight: bold; letter-spacing: 2px; margin: 5px 0; }
 
-        .timer-right {
-            text-align: right;
-            z-index: 1;
-        }
-
-        .time-label {
-            font-size: 12px;
-            opacity: 0.9;
-        }
-
-        .countdown-display {
-            font-size: 28px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            margin: 5px 0;
-        }
-
-        .period-id {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        /* --- BETTING CONTROLS --- */
-        .bet-pad {
-            padding: 20px 15px;
-        }
-
-        .color-row {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
+        /* --- CONTROLS --- */
+        .bet-pad { padding: 20px 15px; }
+        .color-row { display: flex; gap: 10px; margin-bottom: 20px; }
         .btn-color {
-            flex: 1;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
+            flex: 1; border: none; padding: 12px; border-radius: 8px;
+            color: white; font-size: 16px; cursor: pointer;
             box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-            position: relative;
-            overflow: hidden;
         }
-
         .btn-green { background: #4CAF50; }
         .btn-violet { background: #9C27B0; }
         .btn-red { background: #F44336; }
 
-        /* Numbers Grid */
         .numbers-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-            padding: 10px;
-            background: #fafafa;
-            border-radius: 10px;
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px;
+            margin-bottom: 20px; padding: 10px; background: #fafafa; border-radius: 10px;
         }
-
         .num-btn {
-            aspect-ratio: 1;
-            border-radius: 50%;
-            border: none;
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
+            aspect-ratio: 1; border-radius: 50%; border: none; color: white;
+            font-size: 20px; font-weight: bold; cursor: pointer;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            position: relative;
         }
 
-        /* Specific Ball Colors matching the game logic */
+        /* Ball Colors */
         .ball-green { background: #4CAF50; }
         .ball-red { background: #F44336; }
         .ball-violet { background: #9C27B0; }
-        
-        /* The special half-colors */
         .ball-0 { background: linear-gradient(135deg, #F44336 50%, #9C27B0 50%); }
         .ball-5 { background: linear-gradient(135deg, #4CAF50 50%, #9C27B0 50%); }
 
-        .random-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .random-btn {
-            border: 1px solid #F44336;
-            color: #F44336;
-            background: white;
-            padding: 5px 15px;
-            border-radius: 15px;
-        }
-
-        .multiplier-tags {
-            display: flex;
-            gap: 5px;
-        }
-        
-        .tag {
-            background: #eee;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 12px;
-            color: #777;
-        }
-        
-        .tag.active {
-            background: #4CAF50;
-            color: white;
-        }
-
-        .big-small-row {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-bs {
-            flex: 1;
-            padding: 12px;
-            border-radius: 20px;
-            border: none;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .btn-big { background: #FFC107; }
-        .btn-small { background: #64B5F6; }
-
-        /* --- HISTORY TABLE --- */
-        .history-section {
-            padding: 0 15px;
-        }
-        
-        .history-nav {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .h-tab {
-            flex: 1;
-            text-align: center;
-            padding: 10px;
-            background: white;
-            border-radius: 8px;
-            font-size: 14px;
-            color: #777;
-        }
-        
-        .h-tab.active {
-            background: linear-gradient(to right, #ff9800, #ff5722);
-            color: white;
-            box-shadow: 0 2px 5px rgba(255, 87, 34, 0.3);
-        }
-
+        /* --- HISTORY --- */
+        .history-section { padding: 0 15px; }
         .result-table {
-            width: 100%;
-            background: white;
-            border-radius: 10px;
-            border-collapse: collapse;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            font-size: 12px;
+            width: 100%; background: white; border-radius: 10px;
+            border-collapse: collapse; overflow: hidden; font-size: 12px; text-align: center;
         }
+        .result-table th { background: #ff9800; color: white; padding: 12px; }
+        .result-table td { padding: 12px; border-bottom: 1px solid #eee; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 
-        .result-table th {
-            background: #ff9800;
-            color: white;
-            padding: 12px;
-            font-weight: normal;
+        /* --- BETTING MODAL (POPUP) --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 999; display: none;
+            justify-content: center; align-items: flex-end;
         }
-
-        .result-table td {
-            padding: 12px;
-            text-align: center;
-            border-bottom: 1px solid #eee;
-            color: #555;
-            font-weight: 500;
+        .modal-overlay.open { display: flex; }
+        .bottom-sheet {
+            background: white; width: 100%; max-width: 480px;
+            border-top-left-radius: 20px; border-top-right-radius: 20px;
+            padding: 20px; animation: slideUp 0.3s ease;
         }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
         
-        .color-dots {
-            display: flex;
-            justify-content: center;
-            gap: 5px;
+        .sheet-header {
+            display: flex; justify-content: center; align-items: center;
+            margin-bottom: 20px; font-weight: bold; font-size: 18px; position: relative;
         }
-
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
+        .sheet-header .tag-badge {
+            position: absolute; left: 0; padding: 2px 10px; border-radius: 4px; color: white; font-size: 12px;
         }
-
-        /* --- FLOATING BUTTON --- */
-        .support-fab {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            background: #ff9800;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            font-size: 24px;
-            z-index: 100;
+        .money-select { display: flex; gap: 10px; margin-bottom: 20px; }
+        .money-btn {
+            flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 5px; background: #f9f9f9;
         }
+        .money-btn.active { background: #ff9800; color: white; border-color: #ff9800; }
         
-        .dragon-fab {
-             position: fixed;
-            bottom: 140px;
-            right: 20px;
-            background: white;
-            color: #F44336;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            font-size: 20px;
-            z-index: 100;
-            border: 1px solid #ffcdd2;
-        }
+        .action-row { display: flex; gap: 10px; margin-top: 20px; }
+        .sheet-btn { flex: 1; padding: 12px; border: none; border-radius: 25px; font-weight: bold; font-size: 16px; }
+        .btn-cancel { background: #eee; color: #333; }
+        .btn-confirm { background: #ff9800; color: white; }
 
-        /* Pagination */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            gap: 15px;
-            color: #777;
+        /* Toast */
+        .toast {
+            position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.8); color: white; padding: 10px 20px;
+            border-radius: 20px; font-size: 14px; opacity: 0; pointer-events: none; transition: 0.3s; z-index: 1000;
         }
-        
-        .page-btn {
-            background: #eee;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 5px;
-            color: #555;
-        }
-        
-        .page-btn.active {
-            background: #ff9800;
-            color: white;
-        }
+        .toast.show { opacity: 1; }
+
     </style>
 </head>
 <body>
 
     <div class="app-container">
-        
         <div class="header">
             <div class="top-nav">
                 <i class="fas fa-chevron-left"></i>
                 <div class="logo-text">TIRUPATI <span style="font-size:12px; display:block; line-height:10px;">CLUB</span></div>
-                <div style="display:flex; gap:15px;">
-                    <i class="fas fa-headset"></i>
-                    <i class="fas fa-download"></i>
-                </div>
+                <div style="display:flex; gap:15px;"><i class="fas fa-headset"></i><i class="fas fa-download"></i></div>
             </div>
-
             <div class="wallet-card">
-                <div class="balance-label">
-                    <i class="fas fa-wallet" style="color:#ff9800"></i> Wallet balance <i class="fas fa-sync-alt"></i>
-                </div>
-                <div class="balance-amount">₹0.00</div>
+                <div><i class="fas fa-wallet" style="color:#ff9800"></i> Wallet balance</div>
+                <div class="balance-amount">₹ <span id="userBalance">0.00</span></div>
                 <div class="wallet-buttons">
-                    <button class="action-btn btn-withdraw">Withdraw</button>
-                    <button class="action-btn btn-deposit">Deposit</button>
+                    <button class="action-btn btn-withdraw" onclick="alert('Withdrawal feature is currently disabled in Demo.')">Withdraw</button>
+                    <button class="action-btn btn-deposit" onclick="addFakeMoney()">Deposit</button>
                 </div>
             </div>
         </div>
 
         <div class="notice-bar">
             <i class="fas fa-volume-up" style="color:#ff9800"></i>
-            <span style="font-size:12px; color:#555; flex:1; margin-left:10px;">Welcome to Tirupati Club!</span>
-            <button class="notice-detail-btn"><i class="fas fa-fire"></i> Detail</button>
+            <span style="font-size:12px; color:#555; margin-left:10px;">Welcome to Tirupati Club!</span>
+            <button style="background:#ff9800; color:white; border:none; padding:5px 15px; border-radius:15px;">Detail</button>
         </div>
 
         <div class="game-tabs">
-            <div class="tab-item active">
+            <div class="tab-item active" onclick="switchTab(this, '30Sec')">
                 <div class="tab-icon"><i class="fas fa-stopwatch"></i></div>
                 <div class="tab-text">Win Go<br>30Sec</div>
             </div>
-            <div class="tab-item">
+            <div class="tab-item" onclick="switchTab(this, '1Min')">
                 <div class="tab-icon"><i class="fas fa-stopwatch"></i></div>
                 <div class="tab-text">Win Go<br>1Min</div>
             </div>
-            <div class="tab-item">
+            <div class="tab-item" onclick="switchTab(this, '3Min')">
                 <div class="tab-icon"><i class="fas fa-stopwatch"></i></div>
                 <div class="tab-text">Win Go<br>3Min</div>
             </div>
-            <div class="tab-item">
+            <div class="tab-item" onclick="switchTab(this, '5Min')">
                 <div class="tab-icon"><i class="fas fa-stopwatch"></i></div>
                 <div class="tab-text">Win Go<br>5Min</div>
             </div>
         </div>
 
         <div class="game-area">
-            <div class="game-info-left">
-                <div class="how-to-play"><i class="fas fa-book"></i> How to play</div>
+            <div>
+                <div style="border:1px solid rgba(255,255,255,0.5); padding:5px 10px; border-radius:15px; font-size:12px; display:inline-block;">
+                    <i class="fas fa-book"></i> How to play
+                </div>
                 <div class="balls-preview">
                     <div class="mini-ball ball-red">4</div>
                     <div class="mini-ball ball-0">0</div>
-                    <div class="mini-ball ball-red">6</div>
                     <div class="mini-ball ball-green">1</div>
                     <div class="mini-ball ball-5">5</div>
                 </div>
-                <div style="font-size:12px; margin-top:5px;">Win Go 30Sec</div>
+                <div style="font-size:12px; margin-top:5px;" id="gameTitle">Win Go 30Sec</div>
             </div>
-            <div class="timer-right">
-                <div class="time-label">Time remaining</div>
-                <div class="countdown-display">
-                    <span style="background:rgba(255,255,255,0.2); padding:2px 5px; border-radius:4px;">0</span>
-                    <span style="background:rgba(255,255,255,0.2); padding:2px 5px; border-radius:4px;">0</span>
-                    :
-                    <span style="background:rgba(255,255,255,0.2); padding:2px 5px; border-radius:4px;">1</span>
-                    <span style="background:rgba(255,255,255,0.2); padding:2px 5px; border-radius:4px;">6</span>
-                </div>
-                <div class="period-id">20251212100051344</div>
+            <div style="text-align:right;">
+                <div style="font-size:12px; opacity:0.9;">Time remaining</div>
+                <div class="countdown-display" id="timer">00:16</div>
+                <div style="font-size:14px; opacity:0.9;" id="periodId">20251212001</div>
             </div>
         </div>
 
         <div class="bet-pad">
             <div class="color-row">
-                <button class="btn-color btn-green">Green</button>
-                <button class="btn-color btn-violet">Violet</button>
-                <button class="btn-color btn-red">Red</button>
+                <button class="btn-color btn-green" onclick="openBet('Green', '#4CAF50')">Green</button>
+                <button class="btn-color btn-violet" onclick="openBet('Violet', '#9C27B0')">Violet</button>
+                <button class="btn-color btn-red" onclick="openBet('Red', '#F44336')">Red</button>
             </div>
-
             <div class="numbers-grid">
-                <button class="num-btn ball-0">0</button>
-                <button class="num-btn ball-green">1</button>
-                <button class="num-btn ball-red">2</button>
-                <button class="num-btn ball-green">3</button>
-                <button class="num-btn ball-red">4</button>
-                <button class="num-btn ball-5">5</button>
-                <button class="num-btn ball-red">6</button>
-                <button class="num-btn ball-green">7</button>
-                <button class="num-btn ball-red">8</button>
-                <button class="num-btn ball-green">9</button>
+                <button class="num-btn ball-0" onclick="openBet('0', '#F44336')">0</button>
+                <button class="num-btn ball-green" onclick="openBet('1', '#4CAF50')">1</button>
+                <button class="num-btn ball-red" onclick="openBet('2', '#F44336')">2</button>
+                <button class="num-btn ball-green" onclick="openBet('3', '#4CAF50')">3</button>
+                <button class="num-btn ball-red" onclick="openBet('4', '#F44336')">4</button>
+                <button class="num-btn ball-5" onclick="openBet('5', '#4CAF50')">5</button>
+                <button class="num-btn ball-red" onclick="openBet('6', '#F44336')">6</button>
+                <button class="num-btn ball-green" onclick="openBet('7', '#4CAF50')">7</button>
+                <button class="num-btn ball-red" onclick="openBet('8', '#F44336')">8</button>
+                <button class="num-btn ball-green" onclick="openBet('9', '#4CAF50')">9</button>
             </div>
-
-            <div class="random-row">
-                <button class="random-btn">Random</button>
-                <div class="multiplier-tags">
-                    <div class="tag active">X1</div>
-                    <div class="tag">X5</div>
-                    <div class="tag">X10</div>
-                    <div class="tag">X20</div>
-                    <div class="tag">X50</div>
-                    <div class="tag">X100</div>
-                </div>
-            </div>
-
-            <div class="big-small-row">
-                <button class="btn-bs btn-big">Big</button>
-                <button class="btn-bs btn-small">Small</button>
+            <div style="display:flex; gap:10px;">
+                <button class="btn-color" style="background:#FFC107" onclick="openBet('Big', '#FFC107')">Big</button>
+                <button class="btn-color" style="background:#64B5F6" onclick="openBet('Small', '#64B5F6')">Small</button>
             </div>
         </div>
 
         <div class="history-section">
-            <div class="history-nav">
-                <div class="h-tab active">Game history</div>
-                <div class="h-tab">Chart</div>
-                <div class="h-tab">My history</div>
-            </div>
-
+            <h4 style="color:#777; margin-bottom:10px;">Game History</h4>
             <table class="result-table">
-                <thead>
-                    <tr>
-                        <th>Period</th>
-                        <th>Number</th>
-                        <th>Big Small</th>
-                        <th>Color</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>20251212100051343</td>
-                        <td style="color:var(--red); font-size:16px; font-weight:bold;">4</td>
-                        <td>Small</td>
-                        <td><div class="color-dots"><div class="dot" style="background:var(--red)"></div></div></td>
-                    </tr>
-                    <tr>
-                        <td>20251212100051342</td>
-                        <td style="background:linear-gradient(to right, var(--red), var(--violet)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:16px; font-weight:bold;">0</td>
-                        <td>Small</td>
-                        <td><div class="color-dots"><div class="dot" style="background:var(--red)"></div><div class="dot" style="background:var(--violet)"></div></div></td>
-                    </tr>
-                    <tr>
-                        <td>20251212100051341</td>
-                        <td style="color:var(--red); font-size:16px; font-weight:bold;">6</td>
-                        <td>Big</td>
-                        <td><div class="color-dots"><div class="dot" style="background:var(--red)"></div></div></td>
-                    </tr>
-                    <tr>
-                        <td>20251212100051340</td>
-                        <td style="color:var(--green); font-s
+                <thead><tr><th>Period</th><th>Number</th><th>Big/Small</th><th>Color</th></tr></thead>
+                <tbody id="historyTable">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="betModal">
+        <div class="bottom-sheet">
+            <div class="sheet-header">
+                <span class="tag-badge" id="modalBadge">Win Go 30Sec</span>
+                Select <span id="selectedTarget" style="margin-left:5px;">Green</span>
+            </div>
+            <div style="margin-bottom:10px;">Contract Money</div>
+            <div class="money-select">
+                <button class="money-btn active" onclick="selectMoney(1)">1</button>
+                <button class="money-btn" onclick="selectMoney(10)">10</button>
+                <button class="money-btn" onclick="selectMoney(100)">100</button>
+                <button class="money-btn" onclick="selectMoney(1000)">1000</button>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <span>Quantity</span>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <button class="money-btn" onclick="changeQty(-1)">-</button>
+                    <span id="qtyDisplay">1</span>
+                    <button class="money-btn" onclick="changeQty(1)">+</button>
+                </div>
+            </div>
+            <div style="text-align:right; font-weight:bold; color:#ff9800; margin-bottom:15px;">
+                Total amount: ₹ <span id="totalAmt">1.00</span>
+            </div>
+            <div class="action-row">
+                <button class="sheet-btn btn-cancel" onclick="closeModal()">Cancel</button>
+                <button class="sheet-btn btn-confirm" onclick="confirmBet()">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Action Successful</div>
+
+    <script>
+        // State
+        let balance = 0.00;
+        let currentPeriod = 20251212001;
+        let timeLeft = 30;
+        let selectedBet = null;
+        let baseAmount = 1;
+        let quantity = 1;
+
+        // --- CORE FUNCTIONS ---
+
+        function init() {
+            // Load some fake history
+            addHistoryRow(currentPeriod - 1, 4, 'Small', 'red');
+            addHistoryRow(currentPeriod - 2, 0, 'Small', 'violet');
+            addHistoryRow(currentPeriod - 3, 7, 'Big', 'green');
+            
+            // Start Timer
+            setInterval(updateTimer, 1000);
+        }
+
+        function updateTimer() {
+            timeLeft--;
+            if (timeLeft < 0) {
+                timeLeft = 30;
+                currentPeriod++;
+                document.getElementById('periodId').innerText = currentPeriod;
+                showToast("New Period Started");
+                // Simulate new result
+                let rNum = Math.floor(Math.random() * 10);
+                let rColor = (rNum === 0 || rNum === 5) ? 'violet' : (rNum % 2 === 0 ? 'red' : 'green');
+                let rBS = rNum >= 5 ? 'Big' : 'Small';
+                addHistoryRow(currentPeriod - 1, rNum, rBS, rColor);
+            }
+            
+            // Format 00:XX
+            let secStr = timeLeft < 10 ? '0' + timeLeft : '' + timeLeft;
+            document.getElementById('timer').innerHTML = `
+                <span style="background:rgba(255,255,255,0.2); padding:2px 5px; border-radius:4px;">0</span>
+                <span style="background:rgba(255,255,255,0.2); padding:2px 5px; border-radius:4px;">0</span> : 
+                <span style="background:rgba(255,255,255,0.2); padding:2px 5px; border-radius:4px;">${secStr[0]}</span>
+                <span style="background:rgba(255,255,255,0.2); padding:2px 5px; border-radius:4px;">${secStr[1]}</span>
+            `;
+        }
+
+        // --- INTERACTION ---
+
+        function switchTab(el, time) {
+            document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('gameTitle').innerText = "Win Go " + time;
+            document.getElementById('modalBadge').innerText = "Win Go " + time;
+            showToast("Switched to Win Go " + time);
+        }
+
+        function addFakeMoney() {
+            balance += 1000;
+            updateBalance();
+            showToast("Deposit Successful: +₹1000");
+        }
+
+        function updateBalance() {
+            document.getElementById('userBalance').innerText = balance.toFixed(2);
+        }
+
+        // --- BETTING LOGIC ---
+
+        function openBet(target, color) {
+            selectedBet = target;
+            document.getElementById('selectedTarget').innerText = target;
+            document.getElementById('selectedTarget').style.color = color;
+            document.getElementById('modalBadge').style.background = color;
+            
+            // Reset modal values
+            baseAmount = 1;
+            quantity = 1;
+            updateTotal();
+            
+            document.getElementById('betModal').classList.add('open');
+        }
+
+        function closeModal() {
+            document.getElementById('betModal').classList.remove('open');
+        }
+
+        function selectMoney(amt) {
+            baseAmount = amt;
+            // Visual toggle active class
+            document.querySelectorAll('.money-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            updateTotal();
+        }
+
+        function changeQty(change) {
+            if (quantity + change >= 1) {
+                quantity += change;
+                document.getElementById('qtyDisplay').innerText = quantity;
+                updateTotal();
+            }
+        }
+
+        function updateTotal() {
+            document.getElementById('totalAmt').innerText = (baseAmount * quantity).toFixed(2);
+        }
+
+        function confirmBet() {
+            let total = baseAmount * quantity;
+            if (balance >= total) {
+                balance -= total;
+                updateBalance();
+                showToast(`Bet Placed on ${selectedBet} for ₹${total}`);
+                closeModal();
+            } else {
+                showToast("Insufficient Balance! Please Deposit.");
+            }
+        }
+
+        // --- HISTORY ---
+        function addHistoryRow(period, num, bs, colorName) {
+            let colorHex = colorName === 'green' ? '#4CAF50' : (colorName === 'red' ? '#F44336' : '#9C27B0');
+            if (num === 0) colorHex = 'linear-gradient(to right, #F44336, #9C27B0)';
+            if (num === 5) colorHex = 'linear-gradient(to right, #4CAF50, #9C27B0)';
+
+            let row = `<tr>
+                <td>${pe
