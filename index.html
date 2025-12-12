@@ -1,271 +1,346 @@
-    <!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Demo Colour Trading — Mobile (Demo Only)</title>
+  <title>Color Game</title>
+
   <style>
-    /* Mobile-first clean theme */
     :root{
-      --bg:#0b1220;
-      --panel:#0f1724;
-      --muted:#9aa4b2;
-      --accent:#7c3aed;
-      --card:#0f2533;
-      --glass: rgba(255,255,255,0.03);
-      --success: #2bd16f;
-      --danger: #ff4d4f;
-      --glass-2: rgba(255,255,255,0.02);
+      --bg:#070808;
+      --nav:#05060a;
+      --muted:#98a3b3;
+      --green:#2bd16f;
+      --red:#ff3b3b;
+      --violet:#9b5cf6;
+      --glass:rgba(255,255,255,0.03);
+      --card:rgba(255,255,255,0.04);
     }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#e6eef6;background:linear-gradient(180deg,var(--bg) 0%, #071024 100%);}
-    .container{max-width:900px;margin:0 auto;padding:18px 16px 30px}
-    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-    h1{font-size:20px;margin:0;line-height:1.05}
-    p.lead{margin:4px 0 0;font-size:13px;color:var(--muted)}
-
-    /* card */
-    .card{background:linear-gradient(180deg,var(--panel), #071022);border-radius:14px;padding:14px;box-shadow:0 8px 24px rgba(2,6,23,0.6);margin-bottom:12px}
-    .row{display:flex;gap:10px;align-items:center}
-    .col{flex:1}
-
-    /* status */
-    .status{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-    .balance-area{font-size:13px;color:var(--muted)}
-    .balance-num{font-weight:800;font-size:22px;margin-top:4px}
-    .round-num{font-weight:700;font-size:13px;color:var(--muted)}
-
-    /* timer + stake */
-    .timer-wrap{display:flex;gap:12px;align-items:center;margin-bottom:12px}
-    .timer-box{background:var(--glass);padding:14px;border-radius:12px;text-align:center;min-width:90px}
-    .timer-num{font-size:32px;font-weight:800}
-    .timer-label{font-size:12px;color:var(--muted);margin-top:4px}
-    .stake-input{flex:1}
-    .stake-input input{width:100%;padding:12px;border-radius:10px;border:0;background:var(--glass-2);color:inherit;font-weight:600}
-
-    /* big buttons */
-    .choices{display:flex;gap:12px;margin-bottom:12px}
-    .btn{
-      flex:1;padding:14px;border-radius:12px;border:0;font-weight:800;font-size:16px;
-      box-shadow:0 6px 18px rgba(2,6,23,0.6);cursor:pointer;transition:transform .12s ease, box-shadow .12s;
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:system-ui,Roboto,Arial;
+      background:#04101f;
+      color:white;
     }
-    .btn:active{transform:translateY(2px)}
-    .btn.red{background:linear-gradient(180deg,#ff7b7b,#ff3b3b);color:#111}
-    .btn.green{background:linear-gradient(180deg,#9ef4b6,#2bd16f);color:#072510}
-
-    .controls{display:flex;gap:10px;align-items:center;margin-bottom:10px}
-    .start-btn{padding:10px 12px;border-radius:10px;border:0;background:#111827;color:white;font-weight:700;cursor:pointer}
-    .muted{color:var(--muted);font-size:13px}
-
-    /* result */
-    .result{margin-top:6px;padding:12px;border-radius:10px;background:var(--glass);font-weight:700}
-    .result .win{color:var(--success)}
-    .result .lose{color:var(--danger)}
-
-    /* history */
-    .history{max-height:260px;overflow:auto;margin-top:10px}
-    .hist-item{display:flex;justify-content:space-between;padding:10px;border-radius:10px;background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));margin-bottom:8px}
-    .hist-left{font-weight:700}
-    .hist-right{font-weight:700;text-align:right}
-
-    footer.small{font-size:12px;color:var(--muted);text-align:center;margin-top:12px}
-
-    /* larger screen tweaks */
-    @media(min-width:880px){
-      .container{padding:28px}
-      .grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
-      .card{padding:18px}
+    .wrap{
+      max-width:430px;
+      margin:0 auto;
+      padding:14px 12px 90px;
     }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    header h1{
+      font-size:20px;
+      margin:0;
+    }
+    .small{font-size:12px;color:var(--muted)}
+
+    .top-btns{
+      display:flex;
+      gap:10px;
+      margin:10px 0 14px;
+    }
+    .top-btn{
+      flex:1;
+      background:var(--glass);
+      padding:10px;
+      border-radius:8px;
+      border:0;
+      color:white;
+      font-weight:700;
+      font-size:13px;
+    }
+
+    /* balance card */
+    .card{
+      background:var(--card);
+      padding:14px;
+      border-radius:12px;
+      margin-bottom:14px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.4);
+    }
+    .balance-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .balance-amount{
+      font-size:22px;
+      font-weight:900;
+    }
+
+    .row-info{
+      display:flex;
+      gap:8px;
+      margin-top:10px;
+    }
+    .pill{
+      flex:1;
+      background:var(--glass);
+      padding:8px;
+      border-radius:8px;
+      text-align:center;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    /* join buttons */
+    .joins{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      margin:14px 0;
+    }
+    .circle-btn{
+      flex:1;
+      min-height:90px;
+      border-radius:100%;
+      border:0;
+      font-size:16px;
+      font-weight:900;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      color:#111;
+    }
+    .green{background:linear-gradient(180deg,#9ef4b6,#2bd16f);}
+    .red{background:linear-gradient(180deg,#ff8a8a,#ff3b3b);}
+    .violet{background:linear-gradient(180deg,#d3a6ff,#9b5cf6);}
+
+    /* number grid */
+    .numbers{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:8px;
+      margin-bottom:14px;
+    }
+    .num{
+      padding:12px;
+      border-radius:8px;
+      text-align:center;
+      font-weight:800;
+      cursor:pointer;
+      background:var(--glass);
+    }
+
+    /* start + result */
+    .control-row{
+      display:flex;
+      gap:10px;
+      margin-bottom:14px;
+    }
+    .start{
+      padding:10px 12px;
+      border-radius:10px;
+      border:0;
+      background:#0f1724;
+      color:white;
+      font-weight:800;
+      flex:0 0 110px;
+    }
+    .muted2{color:var(--muted);font-size:13px;}
+
+    .result-box{
+      padding:12px;
+      border-radius:10px;
+      background:var(--glass);
+      margin-bottom:14px;
+      font-weight:700;
+    }
+
+    /* table */
+    table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:13px;
+    }
+    th,td{
+      padding:8px;
+      text-align:left;
+    }
+    th{
+      color:var(--muted);
+      font-size:12px;
+    }
+    tr{
+      border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+    .badge{
+      padding:6px 8px;
+      border-radius:8px;
+      font-weight:800;
+      font-size:12px;
+      color:#111;
+    }
+    .badge.green{background:#9ef4b6;}
+    .badge.red{background:#ff8a8a;}
+
+    /* bottom nav */
+    .bottom-nav{
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      background:var(--nav);
+      padding:10px 0;
+      display:flex;
+      justify-content:space-around;
+      border-top:1px solid rgba(255,255,255,0.05);
+    }
+    .nav-item{text-align:center;color:white;font-size:13px;}
+    .nav-item span{display:block;font-size:18px;margin-bottom:2px;}
   </style>
 </head>
+
 <body>
-  <div class="container">
+  <div class="wrap">
+
     <header>
       <div>
-        <h1>Demo Colour Trading</h1>
-        <p class="lead">Demo / educational — no real money. Mobile-friendly.</p>
+        <h1>Color Room</h1>
+        <div class="small">Room ID: 788865</div>
+      </div>
+      <div style="text-align:right">
+        <div class="small">Status</div>
+        <div id="statusTxt" style="font-weight:800;color:#2bd16f">green (96 Rs)</div>
       </div>
     </header>
 
+    <div class="top-btns">
+      <button class="top-btn">Back</button>
+      <button class="top-btn">Rules</button>
+      <button class="top-btn">Wallet</button>
+    </div>
+
     <div class="card">
-      <div class="status">
+      <div class="balance-row">
         <div>
-          <div class="balance-area">Balance (demo points)</div>
-          <div id="balance" class="balance-num">1000</div>
+          <div class="small">Balance</div>
+          <div id="balance" class="balance-amount">1900 Rs</div>
         </div>
         <div style="text-align:right">
-          <div class="round-num">Round <span id="roundNumber">0</span></div>
+          <div class="small">Countdown</div>
+          <div id="countdown" style="font-weight:900">2m 12s</div>
         </div>
       </div>
 
-      <div class="timer-wrap">
-        <div class="timer-box">
-          <div id="timer" class="timer-num">--</div>
-          <div class="timer-label">Time left</div>
-        </div>
-
-        <div class="stake-input">
-          <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Stake (points)</div>
-          <input id="stake" type="number" min="10" step="10" value="100" inputmode="numeric" />
-        </div>
+      <div class="row-info">
+        <div class="pill">Green Room</div>
+        <div class="pill">Fast Mode</div>
       </div>
+    </div>
 
-      <div class="choices">
-        <button id="btnRed" class="btn red">RED</button>
-        <button id="btnGreen" class="btn green">GREEN</button>
-      </div>
+    <!-- join buttons -->
+    <div class="joins">
+      <button id="joinGreen" class="circle-btn green">Green</button>
+      <button id="joinViolet" class="circle-btn violet">Violet</button>
+      <button id="joinRed" class="circle-btn red">Red</button>
+    </div>
 
-      <div class="controls">
-        <button id="startBtn" class="start-btn">Start Round</button>
-        <div class="muted">Auto-start when previous round ends</div>
-      </div>
+    <!-- numbers -->
+    <div class="numbers">
+      <div class="num">0</div>
+      <div class="num">1</div>
+      <div class="num">2</div>
+      <div class="num">3</div>
+      <div class="num">4</div>
+      <div class="num">5</div>
+      <div class="num">6</div>
+      <div class="num">7</div>
+      <div class="num">8</div>
+      <div class="num">9</div>
+    </div>
 
-      <div id="resultBox" class="result" style="display:none">
-        <div id="resultText">Result will appear here</div>
-      </div>
+    <div class="control-row">
+      <button id="startBtn" class="start">Start</button>
+      <div class="muted2">Auto start on next cycle</div>
+    </div>
+
+    <div id="resultBox" class="result-box" style="display:none">
+      Result: <strong id="resultText">-</strong> — <span id="resultAmount"></span>
     </div>
 
     <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <div style="font-weight:800">History</div>
-        <div class="muted">Latest first</div>
-      </div>
+      <div style="font-size:15px;font-weight:800;margin-bottom:8px;">Recent Records</div>
 
-      <div id="history" class="history"></div>
-
-      <div style="display:flex;gap:8px;margin-top:10px">
-        <button id="resetBtn" class="start-btn" style="flex:1;background:#1f2937">Reset</button>
-        <button id="fillBtn" class="start-btn" style="flex:1;background:#0b1220;border:1px solid var(--glass)">+1000 pts</button>
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Room</th>
+            <th>Price</th>
+            <th>No.</th>
+            <th>Color</th>
+          </tr>
+        </thead>
+        <tbody id="recordsBody"></tbody>
+      </table>
     </div>
 
-    <footer class="small">Tip: This is client-side demo. Do not use for real-money activities.</footer>
   </div>
 
-  <script>
-    /* Mobile-friendly game logic (clean) */
-    const balanceEl = document.getElementById('balance');
-    const timerEl = document.getElementById('timer');
-    const stakeInput = document.getElementById('stake');
-    const btnRed = document.getElementById('btnRed');
-    const btnGreen = document.getElementById('btnGreen');
-    const startBtn = document.getElementById('startBtn');
-    const resultBox = document.getElementById('resultBox');
-    const resultText = document.getElementById('resultText');
-    const historyEl = document.getElementById('history');
-    const resetBtn = document.getElementById('resetBtn');
-    const fillBtn = document.getElementById('fillBtn');
-    const roundNumberEl = document.getElementById('roundNumber');
+  <!-- bottom nav -->
+  <div class="bottom-nav">
+    <div class="nav-item"><span>🏠</span>Home</div>
+    <div class="nav-item"><span>💼</span>Wallet</div>
+    <div class="nav-item"><span>🎧</span>Support</div>
+    <div class="nav-item"><span>👤</span>Profile</div>
+  </div>
 
-    const STORAGE_KEY = 'demo_colour_trading_v2';
-    const defaultState = { balance: 1000, history: [], round: 0 };
-    let state = loadState();
+<script>
+let balance = 1900;
+let selected = null;
 
-    let timer = null;
-    let timeLeft = 0;
-    let userChoice = null;
-    let running = false;
+document.getElementById("joinGreen").onclick = ()=>select("green");
+document.getElementById("joinViolet").onclick = ()=>select("violet");
+document.getElementById("joinRed").onclick = ()=>select("red");
 
-    // initial render
-    renderState();
+function select(c){
+  selected = c;
+  alert("Selected " + c);
+}
 
-    // events
-    btnRed.addEventListener('click', ()=>choose('red'));
-    btnGreen.addEventListener('click', ()=>choose('green'));
-    startBtn.addEventListener('click', startRound);
-    resetBtn.addEventListener('click', resetGame);
-    fillBtn.addEventListener('click', ()=>{ state.balance += 1000; saveState(); renderState(); });
+document.getElementById("startBtn").onclick = ()=>{
+  if(!selected){ alert("Select a color first"); return; }
 
-    function choose(col){
-      if(!running){ alert('Start a round first'); return; }
-      userChoice = col;
-      highlightChoice();
-    }
+  const stake = 100;
+  const colors = ["green","red","violet"];
+  const result = colors[Math.floor(Math.random()*colors.length)];
 
-    function highlightChoice(){
-      btnRed.style.boxShadow = userChoice === 'red' ? '0 8px 30px rgba(255,80,80,0.18)' : '';
-      btnGreen.style.boxShadow = userChoice === 'green' ? '0 8px 30px rgba(50,220,120,0.18)' : '';
-    }
+  let amount = 0;
+  if(result === selected){
+    amount = Math.floor(Math.random()*100) + 50;
+    balance += amount;
+  } else {
+    balance -= stake;
+    amount = -stake;
+  }
 
-    function startRound(){
-      if(running){ alert('Round already running'); return; }
-      const stake = Math.max(0, parseInt(stakeInput.value)||0);
-      if(stake <= 0){ alert('Stake must be > 0'); return; }
-      if(stake > state.balance){ alert('Not enough balance'); return; }
+  document.getElementById("balance").innerText = balance + " Rs";
+  document.getElementById("resultBox").style.display = "block";
+  document.getElementById("resultText").innerText = result.toUpperCase();
+  document.getElementById("resultAmount").innerText = amount > 0 ? "+"+amount : amount;
 
-      running = true;
-      userChoice = null; highlightChoice();
-      resultBox.style.display = 'none';
+  addRecord(result);
+}
 
-      timeLeft = 10; // default 10s mobile-friendly
-      timerEl.textContent = timeLeft;
-      incrementRound();
+function addRecord(result){
+  const tb = document.getElementById("recordsBody");
+  const tr = document.createElement("tr");
+  tr.innerHTML = `
+    <td>${Math.floor(800000+Math.random()*100000)}</td>
+    <td>${Math.floor(1000+Math.random()*50000)} Rs</td>
+    <td>${Math.floor(Math.random()*10)}</td>
+    <td><span class="badge ${result}">${result}</span></td>
+  `;
+  tb.prepend(tr);
+}
+</script>
 
-      timer = setInterval(()=>{
-        timeLeft -= 1;
-        timerEl.textContent = timeLeft;
-        if(timeLeft <= 0){
-          clearInterval(timer);
-          timer = null;
-          resolveRound();
-        }
-      },1000);
-    }
-
-    function resolveRound(){
-      // use crypto RNG when possible
-      const rand = (window.crypto && window.crypto.getRandomValues) ? (crypto.getRandomValues(new Uint32Array(1))[0] / 0xffffffff) : Math.random();
-      const result = rand < 0.5 ? 'red' : 'green';
-      const stake = Math.max(0, parseInt(stakeInput.value)||0);
-
-      let won = false, profit = 0;
-      const payoutMultiplier = 1.9; // fixed for simplicity
-      if(userChoice && userChoice === result){
-        won = true;
-        profit = Math.floor(stake * (payoutMultiplier - 1));
-        state.balance += profit;
-      } else {
-        state.balance -= stake;
-      }
-
-      const entry = { time: new Date().toISOString(), round: state.round, stake, choice: userChoice || 'none', result, won, profit };
-      state.history.unshift(entry);
-      state.history = state.history.slice(0,200);
-
-      saveState(); renderState();
-
-      resultBox.style.display = 'block';
-      resultText.innerHTML = `Result: <strong>${result.toUpperCase()}</strong> — <span class="${won ? 'win' : 'lose'}">${won ? '+'+profit : '-'+stake}</span>`;
-
-      running = false;
-      userChoice = null; highlightChoice();
-    }
-
-    function renderState(){
-      balanceEl.textContent = state.balance;
-      roundNumberEl.textContent = state.round;
-      historyEl.innerHTML = '';
-      for(const h of state.history){
-        const d = new Date(h.time);
-        const div = document.createElement('div');
-        div.className = 'hist-item';
-        div.innerHTML = `
-          <div class="hist-left">
-            Round ${h.round}<div style="font-weight:600;color:var(--muted);font-size:12px">${d.toLocaleString()}</div>
-          </div>
-          <div class="hist-right">
-            <div style="font-size:14px">${h.result.toUpperCase()}</div>
-            <div style="font-size:12px;color:var(--muted)">${h.won ? '+'+h.profit : '-'+h.stake}</div>
-          </div>
-        `;
-        historyEl.appendChild(div);
-      }
-    }
-
-    function saveState(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} }
-    function loadState(){ try{ const s = JSON.parse(localStorage.getItem(STORAGE_KEY)); return Object.assign({}, defaultState, s||{}); }catch(e){ return Object.assign({}, defaultState); } }
-    function resetGame(){ if(confirm('Reset demo data?')){ state = Object.assign({}, defaultState); saveState(); renderState(); } }
-    function incrementRound(){ state.round = (state.round || 0) + 1; saveState(); }
-  </script>
 </body>
-</html>
+    </html>
