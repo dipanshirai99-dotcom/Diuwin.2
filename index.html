@@ -1,346 +1,655 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Color Game</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Tirupati Club Clone</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-orange: #FF9800;
+            --deep-orange: #FF5722;
+            --green: #4CAF50;
+            --violet: #9C27B0;
+            --red: #F44336;
+            --blue: #2196F3;
+            --yellow: #FFC107;
+            --bg-gray: #f5f5f5;
+            --text-dark: #333;
+            --white: #ffffff;
+        }
 
-  <style>
-    :root{
-      --bg:#070808;
-      --nav:#05060a;
-      --muted:#98a3b3;
-      --green:#2bd16f;
-      --red:#ff3b3b;
-      --violet:#9b5cf6;
-      --glass:rgba(255,255,255,0.03);
-      --card:rgba(255,255,255,0.04);
-    }
-    *{box-sizing:border-box;}
-    body{
-      margin:0;
-      font-family:system-ui,Roboto,Arial;
-      background:#04101f;
-      color:white;
-    }
-    .wrap{
-      max-width:430px;
-      margin:0 auto;
-      padding:14px 12px 90px;
-    }
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    header{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
-    header h1{
-      font-size:20px;
-      margin:0;
-    }
-    .small{font-size:12px;color:var(--muted)}
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-gray);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
 
-    .top-btns{
-      display:flex;
-      gap:10px;
-      margin:10px 0 14px;
-    }
-    .top-btn{
-      flex:1;
-      background:var(--glass);
-      padding:10px;
-      border-radius:8px;
-      border:0;
-      color:white;
-      font-weight:700;
-      font-size:13px;
-    }
+        /* Mobile Container Simulation */
+        .app-container {
+            width: 100%;
+            max-width: 480px; /* Locks width to look like mobile */
+            background: #fff;
+            min-height: 100vh;
+            padding-bottom: 20px;
+            position: relative;
+        }
 
-    /* balance card */
-    .card{
-      background:var(--card);
-      padding:14px;
-      border-radius:12px;
-      margin-bottom:14px;
-      box-shadow:0 6px 18px rgba(0,0,0,0.4);
-    }
-    .balance-row{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
-    .balance-amount{
-      font-size:22px;
-      font-weight:900;
-    }
+        /* --- HEADER SECTION --- */
+        .header {
+            background: linear-gradient(to right, #ff9a00, #ff5320);
+            padding: 15px;
+            color: white;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            padding-bottom: 30px;
+        }
 
-    .row-info{
-      display:flex;
-      gap:8px;
-      margin-top:10px;
-    }
-    .pill{
-      flex:1;
-      background:var(--glass);
-      padding:8px;
-      border-radius:8px;
-      text-align:center;
-      font-size:12px;
-      color:var(--muted);
-    }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
 
-    /* join buttons */
-    .joins{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      margin:14px 0;
-    }
-    .circle-btn{
-      flex:1;
-      min-height:90px;
-      border-radius:100%;
-      border:0;
-      font-size:16px;
-      font-weight:900;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-      color:#111;
-    }
-    .green{background:linear-gradient(180deg,#9ef4b6,#2bd16f);}
-    .red{background:linear-gradient(180deg,#ff8a8a,#ff3b3b);}
-    .violet{background:linear-gradient(180deg,#d3a6ff,#9b5cf6);}
+        .logo-text {
+            font-weight: bold;
+            font-size: 20px;
+        }
 
-    /* number grid */
-    .numbers{
-      display:grid;
-      grid-template-columns:repeat(5,1fr);
-      gap:8px;
-      margin-bottom:14px;
-    }
-    .num{
-      padding:12px;
-      border-radius:8px;
-      text-align:center;
-      font-weight:800;
-      cursor:pointer;
-      background:var(--glass);
-    }
+        .wallet-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            color: #333;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-top: 10px;
+        }
 
-    /* start + result */
-    .control-row{
-      display:flex;
-      gap:10px;
-      margin-bottom:14px;
-    }
-    .start{
-      padding:10px 12px;
-      border-radius:10px;
-      border:0;
-      background:#0f1724;
-      color:white;
-      font-weight:800;
-      flex:0 0 110px;
-    }
-    .muted2{color:var(--muted);font-size:13px;}
+        .balance-label {
+            color: #777;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
 
-    .result-box{
-      padding:12px;
-      border-radius:10px;
-      background:var(--glass);
-      margin-bottom:14px;
-      font-weight:700;
-    }
+        .balance-amount {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
 
-    /* table */
-    table{
-      width:100%;
-      border-collapse:collapse;
-      font-size:13px;
-    }
-    th,td{
-      padding:8px;
-      text-align:left;
-    }
-    th{
-      color:var(--muted);
-      font-size:12px;
-    }
-    tr{
-      border-bottom:1px solid rgba(255,255,255,0.05);
-    }
-    .badge{
-      padding:6px 8px;
-      border-radius:8px;
-      font-weight:800;
-      font-size:12px;
-      color:#111;
-    }
-    .badge.green{background:#9ef4b6;}
-    .badge.red{background:#ff8a8a;}
+        .wallet-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
 
-    /* bottom nav */
-    .bottom-nav{
-      position:fixed;
-      bottom:0;
-      left:0;
-      right:0;
-      background:var(--nav);
-      padding:10px 0;
-      display:flex;
-      justify-content:space-around;
-      border-top:1px solid rgba(255,255,255,0.05);
-    }
-    .nav-item{text-align:center;color:white;font-size:13px;}
-    .nav-item span{display:block;font-size:18px;margin-bottom:2px;}
-  </style>
+        .action-btn {
+            flex: 1;
+            border: none;
+            padding: 12px;
+            border-radius: 25px;
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .btn-withdraw {
+            background: linear-gradient(to right, #ff8a80, #e53935);
+            box-shadow: 0 4px 10px rgba(229, 57, 53, 0.3);
+        }
+
+        .btn-deposit {
+            background: linear-gradient(to right, #66bb6a, #43a047);
+            box-shadow: 0 4px 10px rgba(67, 160, 71, 0.3);
+        }
+
+        /* --- NOTIFICATION BAR --- */
+        .notice-bar {
+            background: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            margin: -20px 15px 15px; /* Negative margin to overlap header */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+
+        .notice-detail-btn {
+            background: #ff9800;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+
+        /* --- GAME TABS --- */
+        .game-tabs {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-item {
+            text-align: center;
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+
+        .tab-item.active {
+            opacity: 1;
+        }
+
+        .tab-icon {
+            width: 50px;
+            height: 50px;
+            background: #eee; /* Placeholder for the clock images */
+            border-radius: 50%;
+            margin: 0 auto 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        /* Simulating the gradient clock icon */
+        .tab-item.active .tab-icon {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            color: white;
+        }
+        
+        .tab-text {
+            font-size: 12px;
+            color: #555;
+        }
+
+        /* --- TIMER AREA --- */
+        .game-area {
+            background: linear-gradient(to right, #ffa726, #fb8c00);
+            margin: 0 15px;
+            border-radius: 15px;
+            padding: 15px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Decorative background circles */
+        .game-area::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .how-to-play {
+            border: 1px solid rgba(255,255,255,0.5);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .game-info-left {
+            z-index: 1;
+        }
+
+        .balls-preview {
+            display: flex;
+            gap: 5px;
+        }
+
+        .mini-ball {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: white; /* Placeholder */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .timer-right {
+            text-align: right;
+            z-index: 1;
+        }
+
+        .time-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .countdown-display {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin: 5px 0;
+        }
+
+        .period-id {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* --- BETTING CONTROLS --- */
+        .bet-pad {
+            padding: 20px 15px;
+        }
+
+        .color-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn-color {
+            flex: 1;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-green { background: #4CAF50; }
+        .btn-violet { background: #9C27B0; }
+        .btn-red { background: #F44336; }
+
+        /* Numbers Grid */
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #fafafa;
+            border-radius: 10px;
+        }
+
+        .num-btn {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        /* Specific Ball Colors matching the game logic */
+        .ball-green { background: #4CAF50; }
+        .ball-red { background: #F44336; }
+        .ball-violet { background: #9C27B0; }
+        
+        /* The special half-colors */
+        .ball-0 { background: linear-gradient(135deg, #F44336 50%, #9C27B0 50%); }
+        .ball-5 { background: linear-gradient(135deg, #4CAF50 50%, #9C27B0 50%); }
+
+        .random-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .random-btn {
+            border: 1px solid #F44336;
+            color: #F44336;
+            background: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+        }
+
+        .multiplier-tags {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .tag {
+            background: #eee;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            color: #777;
+        }
+        
+        .tag.active {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .big-small-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-bs {
+            flex: 1;
+            padding: 12px;
+            border-radius: 20px;
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .btn-big { background: #FFC107; }
+        .btn-small { background: #64B5F6; }
+
+        /* --- HISTORY TABLE --- */
+        .history-section {
+            padding: 0 15px;
+        }
+        
+        .history-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .h-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #777;
+        }
+        
+        .h-tab.active {
+            background: linear-gradient(to right, #ff9800, #ff5722);
+            color: white;
+            box-shadow: 0 2px 5px rgba(255, 87, 34, 0.3);
+        }
+
+        .result-table {
+            width: 100%;
+            background: white;
+            border-radius: 10px;
+            border-collapse: collapse;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            font-size: 12px;
+        }
+
+        .result-table th {
+            background: #ff9800;
+            color: white;
+            padding: 12px;
+            font-weight: normal;
+        }
+
+        .result-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        .color-dots {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        /* --- FLOATING BUTTON --- */
+        .support-fab {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: #ff9800;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            font-size: 24px;
+            z-index: 100;
+        }
+        
+        .dragon-fab {
+             position: fixed;
+            bottom: 140px;
+            right: 20px;
+            background: white;
+            color: #F44336;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            font-size: 20px;
+            z-index: 100;
+            border: 1px solid #ffcdd2;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            gap: 15px;
+            color: #777;
+        }
+        
+        .page-btn {
+            background: #eee;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            color: #555;
+        }
+        
+        .page-btn.active {
+            background: #ff9800;
+            color: white;
+        }
+    </style>
 </head>
-
 <body>
-  <div class="wrap">
 
-    <header>
-      <div>
-        <h1>Color Room</h1>
-        <div class="small">Room ID: 788865</div>
-      </div>
-      <div style="text-align:right">
-        <div class="small">Status</div>
-        <div id="statusTxt" style="font-weight:800;color:#2bd16f">green (96 Rs)</div>
-      </div>
-    </header>
+    <div class="app-container">
+        
+        <div class="header">
+            <div class="top-nav">
+                <i class="fas fa-chevron-left"></i>
+                <div class="logo-text">TIRUPATI <span style="font-size:12px; display:block; line-height:10px;">CLUB</span></div>
+                <div style="display:flex; gap:15px;">
+                    <i class="fas fa-headset"></i>
+                    <i class="fas fa-download"></i>
+                </div>
+            </div>
 
-    <div class="top-btns">
-      <button class="top-btn">Back</button>
-      <button class="top-btn">Rules</button>
-      <button class="top-btn">Wallet</button>
-    </div>
-
-    <div class="card">
-      <div class="balance-row">
-        <div>
-          <div class="small">Balance</div>
-          <div id="balance" class="balance-amount">1900 Rs</div>
+            <div class="wallet-card">
+                <div class="balance-label">
+                    <i class="fas fa-wallet" style="color:#ff9800"></i> Wallet balance <i class="fas fa-sync-alt"></i>
+                </div>
+                <div class="balance-amount">₹0.00</div>
+                <div class="wallet-buttons">
+                    <button class="action-btn btn-withdraw">Withdraw</button>
+                    <button class="action-btn btn-deposit">Deposit</button>
+                </div>
+            </div>
         </div>
-        <div style="text-align:right">
-          <div class="small">Countdown</div>
-          <div id="countdown" style="font-weight:900">2m 12s</div>
+
+        <div class="notice-bar">
+            <i class="fas fa-volume-up" style="color:#ff9800"></i>
+            <span style="font-size:12px; color:#555; flex:1; margin-left:10px;">Welcome to Tirupati Club!</span>
+            <button class="notice-detail-btn"><i class="fas fa-fire"></i> Detail</button>
         </div>
-      </div>
 
-      <div class="row-info">
-        <div class="pill">Green Room</div>
-        <div class="pill">Fast Mode</div>
-      </div>
-    </div>
+        <div class="game-tabs">
+            <div class="tab-item active">
+                <div class="tab-icon"><i class="fas fa-stopwatch"></i></div>
+                <div class="tab-text">Win Go<br>30Sec</div>
+            </div>
+            <div class="tab-item">
+                <div class="tab-icon"><i class="fas fa-stopwatch"></i></div>
+                <div class="tab-text">Win Go<br>1Min</div>
+            </div>
+            <div class="tab-item">
+                <div class="tab-icon"><i class="fas fa-stopwatch"></i></div>
+                <div class="tab-text">Win Go<br>3Min</div>
+            </div>
+            <div class="tab-item">
+                <div class="tab-icon"><i class="fas fa-stopwatch"></i></div>
+                <div class="tab-text">Win Go<br>5Min</div>
+            </div>
+        </div>
 
-    <!-- join buttons -->
-    <div class="joins">
-      <button id="joinGreen" class="circle-btn green">Green</button>
-      <button id="joinViolet" class="circle-btn violet">Violet</button>
-      <button id="joinRed" class="circle-btn red">Red</button>
-    </div>
+        <div class="game-area">
+            <div class="game-info-left">
+                <div class="how-to-play"><i class="fas fa-book"></i> How to play</div>
+                <div class="balls-preview">
+                    <div class="mini-ball ball-red">4</div>
+                    <div class="mini-ball ball-0">0</div>
+                    <div class="mini-ball ball-red">6</div>
+                    <div class="mini-ball ball-green">1</div>
+                    <div class="mini-ball ball-5">5</div>
+                </div>
+                <div style="font-size:12px; margin-top:5px;">Win Go 30Sec</div>
+            </div>
+            <div class="timer-right">
+                <div class="time-label">Time remaining</div>
+                <div class="countdown-display">
+                    <span style="background:rgba(255,255,255,0.2); padding:2px 5px; border-radius:4px;">0</span>
+                    <span style="background:rgba(255,255,255,0.2); padding:2px 5px; border-radius:4px;">0</span>
+                    :
+                    <span style="background:rgba(255,255,255,0.2); padding:2px 5px; border-radius:4px;">1</span>
+                    <span style="background:rgba(255,255,255,0.2); padding:2px 5px; border-radius:4px;">6</span>
+                </div>
+                <div class="period-id">20251212100051344</div>
+            </div>
+        </div>
 
-    <!-- numbers -->
-    <div class="numbers">
-      <div class="num">0</div>
-      <div class="num">1</div>
-      <div class="num">2</div>
-      <div class="num">3</div>
-      <div class="num">4</div>
-      <div class="num">5</div>
-      <div class="num">6</div>
-      <div class="num">7</div>
-      <div class="num">8</div>
-      <div class="num">9</div>
-    </div>
+        <div class="bet-pad">
+            <div class="color-row">
+                <button class="btn-color btn-green">Green</button>
+                <button class="btn-color btn-violet">Violet</button>
+                <button class="btn-color btn-red">Red</button>
+            </div>
 
-    <div class="control-row">
-      <button id="startBtn" class="start">Start</button>
-      <div class="muted2">Auto start on next cycle</div>
-    </div>
+            <div class="numbers-grid">
+                <button class="num-btn ball-0">0</button>
+                <button class="num-btn ball-green">1</button>
+                <button class="num-btn ball-red">2</button>
+                <button class="num-btn ball-green">3</button>
+                <button class="num-btn ball-red">4</button>
+                <button class="num-btn ball-5">5</button>
+                <button class="num-btn ball-red">6</button>
+                <button class="num-btn ball-green">7</button>
+                <button class="num-btn ball-red">8</button>
+                <button class="num-btn ball-green">9</button>
+            </div>
 
-    <div id="resultBox" class="result-box" style="display:none">
-      Result: <strong id="resultText">-</strong> — <span id="resultAmount"></span>
-    </div>
+            <div class="random-row">
+                <button class="random-btn">Random</button>
+                <div class="multiplier-tags">
+                    <div class="tag active">X1</div>
+                    <div class="tag">X5</div>
+                    <div class="tag">X10</div>
+                    <div class="tag">X20</div>
+                    <div class="tag">X50</div>
+                    <div class="tag">X100</div>
+                </div>
+            </div>
 
-    <div class="card">
-      <div style="font-size:15px;font-weight:800;margin-bottom:8px;">Recent Records</div>
+            <div class="big-small-row">
+                <button class="btn-bs btn-big">Big</button>
+                <button class="btn-bs btn-small">Small</button>
+            </div>
+        </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Room</th>
-            <th>Price</th>
-            <th>No.</th>
-            <th>Color</th>
-          </tr>
-        </thead>
-        <tbody id="recordsBody"></tbody>
-      </table>
-    </div>
+        <div class="history-section">
+            <div class="history-nav">
+                <div class="h-tab active">Game history</div>
+                <div class="h-tab">Chart</div>
+                <div class="h-tab">My history</div>
+            </div>
 
-  </div>
-
-  <!-- bottom nav -->
-  <div class="bottom-nav">
-    <div class="nav-item"><span>🏠</span>Home</div>
-    <div class="nav-item"><span>💼</span>Wallet</div>
-    <div class="nav-item"><span>🎧</span>Support</div>
-    <div class="nav-item"><span>👤</span>Profile</div>
-  </div>
-
-<script>
-let balance = 1900;
-let selected = null;
-
-document.getElementById("joinGreen").onclick = ()=>select("green");
-document.getElementById("joinViolet").onclick = ()=>select("violet");
-document.getElementById("joinRed").onclick = ()=>select("red");
-
-function select(c){
-  selected = c;
-  alert("Selected " + c);
-}
-
-document.getElementById("startBtn").onclick = ()=>{
-  if(!selected){ alert("Select a color first"); return; }
-
-  const stake = 100;
-  const colors = ["green","red","violet"];
-  const result = colors[Math.floor(Math.random()*colors.length)];
-
-  let amount = 0;
-  if(result === selected){
-    amount = Math.floor(Math.random()*100) + 50;
-    balance += amount;
-  } else {
-    balance -= stake;
-    amount = -stake;
-  }
-
-  document.getElementById("balance").innerText = balance + " Rs";
-  document.getElementById("resultBox").style.display = "block";
-  document.getElementById("resultText").innerText = result.toUpperCase();
-  document.getElementById("resultAmount").innerText = amount > 0 ? "+"+amount : amount;
-
-  addRecord(result);
-}
-
-function addRecord(result){
-  const tb = document.getElementById("recordsBody");
-  const tr = document.createElement("tr");
-  tr.innerHTML = `
-    <td>${Math.floor(800000+Math.random()*100000)}</td>
-    <td>${Math.floor(1000+Math.random()*50000)} Rs</td>
-    <td>${Math.floor(Math.random()*10)}</td>
-    <td><span class="badge ${result}">${result}</span></td>
-  `;
-  tb.prepend(tr);
-}
-</script>
-
-</body>
-    </html>
+            <table class="result-table">
+                <thead>
+                    <tr>
+                        <th>Period</th>
+                        <th>Number</th>
+                        <th>Big Small</th>
+                        <th>Color</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>20251212100051343</td>
+                        <td style="color:var(--red); font-size:16px; font-weight:bold;">4</td>
+                        <td>Small</td>
+                        <td><div class="color-dots"><div class="dot" style="background:var(--red)"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td>20251212100051342</td>
+                        <td style="background:linear-gradient(to right, var(--red), var(--violet)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:16px; font-weight:bold;">0</td>
+                        <td>Small</td>
+                        <td><div class="color-dots"><div class="dot" style="background:var(--red)"></div><div class="dot" style="background:var(--violet)"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td>20251212100051341</td>
+                        <td style="color:var(--red); font-size:16px; font-weight:bold;">6</td>
+                        <td>Big</td>
+                        <td><div class="color-dots"><div class="dot" style="background:var(--red)"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td>20251212100051340</td>
+                        <td style="color:var(--green); font-s
